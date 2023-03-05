@@ -2,6 +2,7 @@ package com.ics499.clothingstore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,5 +24,23 @@ public class RewardsController {
 	@PostMapping("/saveRewards")
 	public Rewards saveRewards(@RequestBody Rewards reward) {
 		return rewardsRepository.save(reward);
+	}
+	
+	
+	@GetMapping("/all")
+	public List<Rewards> list() {
+		return rewardsRepository.findAll();
+	}
+	
+	@GetMapping("{id}")
+	public Rewards get(@PathVariable Long id) {
+		return rewardsRepository.getReferenceById(id);
+	}
+	
+	
+	@PostMapping("/add")
+	public Rewards create(@RequestBody final Rewards reward) {
+		return rewardsRepository.saveAndFlush(reward);
+		
 	}
 }

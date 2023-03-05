@@ -20,6 +20,10 @@ public class Rewards {
 		this.accountLifespanPoints = accountLifespanPoints;
 	}
 	
+	public Rewards() {
+		
+	}
+	
 	public int getCurrentPoints() {
 		return currentPoints;
 	}

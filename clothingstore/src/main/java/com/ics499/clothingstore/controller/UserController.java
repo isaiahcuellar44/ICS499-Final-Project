@@ -16,4 +16,20 @@ public class UserController {
 	public String test() {
 		return "User Controller";
 	}
+	
+	@GetMapping("/hat")
+	public List<Hat> list(){
+		return hatRepo.findAll();
+	}
+	
+	@SuppressWarnings("deprecation")
+	@GetMapping("{id}")
+	public Hat get(@PathVariable long id) {
+		return hatRepo.getOne(id);
+			}
+	@PostMapping("/add")
+	public Hat create(@RequestBody final Hat hat) {
+		return hatRepo.saveAndFlush(hat);
+	}
+
 }
