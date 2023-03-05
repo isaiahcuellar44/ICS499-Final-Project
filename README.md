@@ -10,6 +10,6 @@ Some of our current challanges include: version types utilizing Spring Boot and 
 
 
 
-Team Members: Justin Pham, Isaiah Cuellar, Tom Waterman, Kyle. 
+Team Members: Dylan Skokan, Justin Pham, Isaiah Cuellar, Tom Waterman.
 
 3/4/2023
