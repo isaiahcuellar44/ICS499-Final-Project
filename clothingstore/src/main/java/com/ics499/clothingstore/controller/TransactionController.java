@@ -26,6 +26,8 @@ public class TransactionController {
 	
 	@GetMapping("/all")
 	public List<Transaction> list() {
+	
+		
 		return transactionRepository.findAll();
 	}
 	
