@@ -1,7 +1,10 @@
 package com.ics499.clothingstore.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 
@@ -17,9 +20,10 @@ public class Customer extends User {
 	private String phoneNumber;
 	private Date dateAccountCreated;
 	
-	//causes crash, can we have a column of custom objects such as a column ShoppingCart?
-	//private List<Transaction> transactionHistory = new ArrayList<Transaction>();
-	//private List<Rewards> customerRewards;
+//	causes crash, can we have a column of custom objects such as a column ShoppingCart?
+//	@ElementCollection
+//	private List<Transaction> transactionHistory = new ArrayList<Transaction>();
+//	private List<Rewards> customerRewards;
 
 	public Customer(String address, String city, String state, String phoneNumber, Date dateAccountCreated
 			) {
