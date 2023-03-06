@@ -9,5 +9,9 @@ public abstract class User {
 	
 	@Id
 	@GeneratedValue
-	private long customerId;
+	private long userId;
+
+	public long getUserId() {
+		return userId;
+	}
 }

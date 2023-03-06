@@ -20,17 +20,17 @@ public class CustomerController {
 	@Autowired
 	CustomerRepository customerRepository;
 	
-	@GetMapping("/customer")
+	@GetMapping("/test")
 	public String test() {
 		return "Customer Controller";
 	}
 	
-	@PostMapping("/saveCustomer")
+	@PostMapping("/save")
 	public Customer saveCustomer(@RequestBody Customer customer) {
 		return customerRepository.save(customer);
 	}
 	
-	@PostMapping("/saveManyCustomers")
+	@PostMapping("/saveMany")
 	public List<Customer> saveManyCustomers(@RequestBody List<Customer> customers) {
 		return customerRepository.saveAll(customers);
 	}

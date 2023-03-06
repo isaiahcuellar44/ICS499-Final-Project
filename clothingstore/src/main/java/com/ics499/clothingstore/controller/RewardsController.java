@@ -7,27 +7,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.ics499.clothingstore.model.Rewards;
 import com.ics499.clothingstore.repository.RewardsRepository;
 
 @RestController
+@RequestMapping("rewards")
 public class RewardsController {
 	
 	@Autowired
 	RewardsRepository rewardsRepository;
 	
-	@GetMapping("/rewards")
+	@GetMapping("/test")
 	public String test() {
 		return "Rewards Controller";
 	}
 	
-	@PostMapping("/saveRewards")
+	@PostMapping("/save")
 	public Rewards saveRewards(@RequestBody Rewards reward) {
 		return rewardsRepository.save(reward);
 	}
 	
-	@PostMapping("/saveManyRewards")
+	@PostMapping("/saveMany")
 	public List<Rewards> saveManyRewards(@RequestBody List<Rewards> rewards) {
 		return rewardsRepository.saveAll(rewards);
 	}

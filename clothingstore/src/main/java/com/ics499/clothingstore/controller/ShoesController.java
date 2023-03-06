@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ics499.clothingstore.model.Shoes;
 import com.ics499.clothingstore.repository.ShoesRepository;
 
 @RestController
+@RequestMapping("shoes")
 public class ShoesController {
 	
 	@Autowired
@@ -22,12 +24,12 @@ public class ShoesController {
 		return "Shoes Controller";
 	}
 	
-	@PostMapping("/saveShoes")
+	@PostMapping("/save")
 	public Shoes saveShoes(@RequestBody Shoes shoes) {
 		return shoesRepository.save(shoes);
 	}
 	
-	@PostMapping("/saveManyShoes")
+	@PostMapping("/saveMany")
 	public List<Shoes> saveManyShoes(@RequestBody List<Shoes> shoes) {
 		return shoesRepository.saveAll(shoes);
 	}
