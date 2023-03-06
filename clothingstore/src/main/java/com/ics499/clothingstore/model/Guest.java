@@ -7,10 +7,11 @@ import javax.persistence.GeneratedValue;
 public class Guest extends User {
 
 	@GeneratedValue
-	private long sessionId = 0;
+	private long sessionId;
 
 	public Guest() {
-		createId();
+		super();
+		//createId();
 	}
 
 	public long createId() {
