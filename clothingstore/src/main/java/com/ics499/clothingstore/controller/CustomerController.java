@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ics499.clothingstore.repository.CustomerRepository;
 import com.ics499.clothingstore.model.Customer;
+import com.ics499.clothingstore.repository.CustomerRepository;
+
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
@@ -19,9 +20,19 @@ public class CustomerController {
 	@Autowired
 	CustomerRepository customerRepository;
 	
-	@GetMapping("/customer")
+	@GetMapping("/test")
 	public String test() {
 		return "Customer Controller";
+	}
+	
+	@PostMapping("/save")
+	public Customer saveCustomer(@RequestBody Customer customer) {
+		return customerRepository.save(customer);
+	}
+	
+	@PostMapping("/saveMany")
+	public List<Customer> saveManyCustomers(@RequestBody List<Customer> customers) {
+		return customerRepository.saveAll(customers);
 	}
 	
 	@GetMapping("/all")
@@ -34,11 +45,9 @@ public class CustomerController {
 		return customerRepository.getReferenceById(id);
 	}
 	
-	
 	@PostMapping("/add")
 	public Customer create(@RequestBody final Customer customer) {
-
 		return customerRepository.saveAndFlush(customer);
-		
 	}
+	
 }

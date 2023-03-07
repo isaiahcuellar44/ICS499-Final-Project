@@ -1,25 +1,20 @@
 package com.ics499.clothingstore.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 
 @Entity
 public class Guest extends User {
 
-	@GeneratedValue
-	private long sessionId = 0;
+	//@GeneratedValue
+	//private long sessionId;
 
 	public Guest() {
-		createId();
-	}
-
-	public long createId() {
-		return sessionId++;
+		super();
 	}
 
 	@Override
 	public String toString() {
-		return "Guest: " + sessionId;
+		return "Guest: " + super.getUserId();
 	}
 
 }

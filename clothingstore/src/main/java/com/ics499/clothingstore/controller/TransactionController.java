@@ -7,22 +7,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ics499.clothingstore.model.Transaction;
 import com.ics499.clothingstore.repository.TransactionRepository;
 
 @RestController
+@RequestMapping("transaction")
 public class TransactionController {
 	
 	@Autowired
 	TransactionRepository transactionRepository;
 	
-	@GetMapping("/transaction")
+	@GetMapping("/test")
 	public String test() {
 		return "Transaction Controller";
 	}
 	
+	@PostMapping("/save")
+	public Transaction saveTransaction(@RequestBody Transaction transaction) {
+		return transactionRepository.save(transaction);
+	}
+	
+	@PostMapping("/saveMany")
+	public List<Transaction> saveManyTransactions(@RequestBody List<Transaction> transactions) {
+		return transactionRepository.saveAll(transactions);
+	}
 	
 	@GetMapping("/all")
 	public List<Transaction> list() {
@@ -36,10 +47,8 @@ public class TransactionController {
 		return transactionRepository.getReferenceById(id);
 	}
 	
-	
 	@PostMapping("/add")
 	public Transaction create(@RequestBody final Transaction transaction) {
 		return transactionRepository.saveAndFlush(transaction);
-		
 	}
 }
