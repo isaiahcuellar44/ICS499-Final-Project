@@ -1,8 +1,11 @@
 package com.ics499.clothingstore.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class ShoppingCart {
@@ -10,9 +13,9 @@ public class ShoppingCart {
 	@Id
 	@GeneratedValue
 	private long shoppingCartId;
-
-	//causes crash, can we have a column of custom objects such as a column ShoppingCart?
-	//private List<Product> products;
+	
+	@OneToMany(mappedBy = "shoppingCart")
+	private List<CartItem> cartItems;
 	
 	private long userAccountId;
 
