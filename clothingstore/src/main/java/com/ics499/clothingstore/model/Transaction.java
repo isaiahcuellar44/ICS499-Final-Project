@@ -13,19 +13,20 @@ public class Transaction implements Payment {
 	@GeneratedValue
 	private long transactionId;
 	private String PaymentMethod;// could this be a enum? like Visa, Mastercard, discover?
-	private int creditCardNumber;
+	private String creditCardNumber;
 	private int creditCardCV;
 	private Date creditCardExpirationDate;
 	
 	//causes crash, can we have a column of custom objects such as a column ShoppingCart?
 	//private ShoppingCart cart;
+	private long shoppingCartId;
 	
 	private double total;
 	private Date transactionDate;
 	private boolean isReturn;// should returns be it's own subclass?
 	private long userAccountId;
 
-	public Transaction(String paymentMethod, int creditCardNumber, int creditCardCV, Date creditCardExpirationDate,
+	public Transaction(String paymentMethod, String creditCardNumber, int creditCardCV, Date creditCardExpirationDate,
 			ShoppingCart cart, double total, Date transactionDate, boolean isReturn, long userAccountId) {
 		super();
 		PaymentMethod = paymentMethod;
@@ -58,11 +59,11 @@ public class Transaction implements Payment {
 		PaymentMethod = paymentMethod;
 	}
 
-	public int getCreditCardNumber() {
+	public String getCreditCardNumber() {
 		return creditCardNumber;
 	}
 
-	public void setCreditCardNumber(int creditCardNumber) {
+	public void setCreditCardNumber(String creditCardNumber) {
 		this.creditCardNumber = creditCardNumber;
 	}
 
@@ -135,6 +136,14 @@ public class Transaction implements Payment {
 	public String doSomeEncrypting() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public long getShoppingCartId() {
+		return shoppingCartId;
+	}
+
+	public void setShoppingCartId(long shoppingCartId) {
+		this.shoppingCartId = shoppingCartId;
 	}
 
 }
