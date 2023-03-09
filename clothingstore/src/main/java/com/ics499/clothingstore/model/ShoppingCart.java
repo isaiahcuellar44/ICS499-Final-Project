@@ -19,9 +19,10 @@ public class ShoppingCart {
 	
 	private long userAccountId;
 
-	public ShoppingCart(long userAccountId) {
+	public ShoppingCart(long userAccountId, List<CartItem> cartItems) {
 		super();
 		this.userAccountId = userAccountId;
+		this.cartItems = cartItems;
 	}
 
 	public ShoppingCart() {
