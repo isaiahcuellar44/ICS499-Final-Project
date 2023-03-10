@@ -11,6 +11,8 @@ public class Customer extends User {
 	@GeneratedValue
 	private long customerId;
 	
+	private String firstName;
+	private String lastName;
 	private String address;
 	private String city;
 	private String state;
@@ -22,16 +24,16 @@ public class Customer extends User {
 //	private List<Transaction> transactionHistory = new ArrayList<Transaction>();
 //	private List<Rewards> customerRewards;
 
-	public Customer(String address, String city, String state, String phoneNumber, Date dateAccountCreated
-			) {
+	public Customer(String firstName, String lastName, String address, String city, String state, String phoneNumber,
+			Date dateAccountCreated) {
 		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.address = address;
 		this.city = city;
 		this.state = state;
 		this.phoneNumber = phoneNumber;
 		this.dateAccountCreated = dateAccountCreated;
-		//this.transactionHistory = transactionHistory;
-
 	}
 
 	public Customer() {
@@ -82,6 +84,24 @@ public class Customer extends User {
 		this.dateAccountCreated = dateAccountCreated;
 	}
 
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	
+	
 	//public List<Transaction> getTransactionHistory() {
 		//return transactionHistory;
 	//}
