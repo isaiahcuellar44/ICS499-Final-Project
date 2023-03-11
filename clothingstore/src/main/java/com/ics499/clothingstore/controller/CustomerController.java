@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ics499.clothingstore.model.Customer;
 import com.ics499.clothingstore.repository.CustomerRepository;
+import com.ics499.clothingstore.serviceImp.CustomerServiceImp;
 
 @RestController
 @RequestMapping("/customer")
@@ -22,6 +23,11 @@ public class CustomerController {
 	
 	@GetMapping("/test")
 	public String test() {
+		
+		CustomerServiceImp test = new CustomerServiceImp();
+		
+		test.isValid("123", "123");
+		
 		return "Customer Controller";
 	}
 	
