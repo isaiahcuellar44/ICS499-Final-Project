@@ -10,7 +10,8 @@ public class Customer extends User {
 	
 	@GeneratedValue
 	private long customerId;
-	
+	private String firstName;
+	private String lastName;
 	private String address;
 	private String city;
 	private String state;
