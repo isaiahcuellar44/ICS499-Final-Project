@@ -10,6 +10,7 @@ public class Customer extends User {
 	
 	@GeneratedValue
 	private long customerId;
+  
 	private String firstName;
 	private String lastName;
 	private String address;
@@ -26,20 +27,19 @@ public class Customer extends User {
 
 	public Customer(String firstName, String lastName, String address, String city, String state, String phoneNumber,
 			Date dateAccountCreated, String email) {
-      
 		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.address = address;
 		this.city = city;
 		this.state = state;
 		this.phoneNumber = phoneNumber;
 		this.dateAccountCreated = dateAccountCreated;
 		this.email = email;
-		//this.transactionHistory = transactionHistory;
-
 	}
-
+	
 	public Customer() {
-
+		
 	}
 
 	public void addTransactionToHistory() {
@@ -110,6 +110,8 @@ public class Customer extends User {
 		this.email = email;
 	}
 
+	
+	
 	//public List<Transaction> getTransactionHistory() {
 		//return transactionHistory;
 	//}
