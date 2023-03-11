@@ -36,7 +36,9 @@ public class Customer extends User {
 		this.dateAccountCreated = dateAccountCreated;
 	}
 	
-	private Customer() {}
+	public Customer() {
+		
+	}
 
 	public void addTransactionToHistory() {
 		//this.transactionHistory.add(t);
