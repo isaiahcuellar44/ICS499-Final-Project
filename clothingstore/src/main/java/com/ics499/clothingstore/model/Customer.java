@@ -18,6 +18,7 @@ public class Customer extends User {
 	private String state;
 	private String phoneNumber;
 	private Date dateAccountCreated;
+	private String email;
 	
 //	causes crash, can we have a column of custom objects such as a column ShoppingCart?
 //	@ElementCollection
@@ -25,7 +26,7 @@ public class Customer extends User {
 //	private List<Rewards> customerRewards;
 
 	public Customer(String firstName, String lastName, String address, String city, String state, String phoneNumber,
-			Date dateAccountCreated) {
+			Date dateAccountCreated, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -34,6 +35,7 @@ public class Customer extends User {
 		this.state = state;
 		this.phoneNumber = phoneNumber;
 		this.dateAccountCreated = dateAccountCreated;
+		this.email = email;
 	}
 	
 	public Customer() {
@@ -98,6 +100,14 @@ public class Customer extends User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	
