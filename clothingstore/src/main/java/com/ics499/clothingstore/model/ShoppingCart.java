@@ -1,8 +1,13 @@
 package com.ics499.clothingstore.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class ShoppingCart {
@@ -10,15 +15,16 @@ public class ShoppingCart {
 	@Id
 	@GeneratedValue
 	private long shoppingCartId;
-
-	//causes crash, can we have a column of custom objects such as a column ShoppingCart?
-	//private List<Product> products;
 	
-	private long userAccountId;
-
-	public ShoppingCart(long userAccountId) {
+	@OneToMany(mappedBy = "shoppingCart")
+	private List<CartItem> cartItems;
+	
+	@OneToOne(mappedBy = "userCart")
+	private User user;
+	
+	public ShoppingCart(long userAccountId, List<CartItem> cartItems) {
 		super();
-		this.userAccountId = userAccountId;
+		this.cartItems = cartItems;
 	}
 
 	public ShoppingCart() {
@@ -28,15 +34,27 @@ public class ShoppingCart {
 	public long timeToLive() {
 		return 0;
 	}
-
-	public long getUserAccountId() {
-		return userAccountId;
+	
+	public void addToCart(CartItem cartItem) {
+		cartItems.add(cartItem);
 	}
 
-	public void setUserAccountId(long userAccountId) {
-		this.userAccountId = userAccountId;
+	public List<CartItem> getCartItems() {
+		return cartItems;
 	}
 
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	//@Override
 	//public String toString() {
 	//	return "ShoppingCart [products=" + products + ", userAccountId=" + userAccountId + "]";
