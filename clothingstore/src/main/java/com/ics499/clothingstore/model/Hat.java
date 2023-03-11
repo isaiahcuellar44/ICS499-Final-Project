@@ -4,28 +4,17 @@ import javax.persistence.Entity;
 
 @Entity
 public class Hat extends Product {
-	
-	private enum HatType {
-		Baseball, Beanie, Bucket, Fedora, Top
-	}
-	
-	private HatType type;
 
-	public Hat(float price, int stock, String description, String brand, String color, String size, String fit,
-			HatType type) {
+	//@GeneratedValue
+	//private long hatId = 0;
+
+	public Hat(float price, int stock, String description, String brand, String color, String size, String fit) {
 		super(price, stock, description, brand, color, size, fit);
-		this.type = type;
+		// TODO Auto-generated constructor stub
 	}
 
 	public Hat() {
 
 	}
 
-	public HatType getType() {
-		return type;
-	}
-
-	public void setType(HatType type) {
-		this.type = type;
-	}
 }

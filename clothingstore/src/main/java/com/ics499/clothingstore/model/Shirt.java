@@ -5,28 +5,15 @@ import javax.persistence.Entity;
 @Entity
 public class Shirt extends Product {
 	
-	private enum ShirtType {
-		tShirt, polo, dress, turtleneck, sweat, sleveless, vNeck
-	}
-	
-	private ShirtType type;
-	
-	public Shirt(float price, int stock, String description, String brand, String color, String size, String fit,
-			ShirtType type) {
+	//@GeneratedValue
+	//private long shirtId = 0;
+
+	public Shirt(float price, int stock, String description, String brand, String color, String size, String fit) {
 		super(price, stock, description, brand, color, size, fit);
-		this.type = type;
+		// TODO Auto-generated constructor stub
 	}
 
 	public Shirt() {
 
 	}
-
-	public ShirtType getType() {
-		return type;
-	}
-
-	public void setType(ShirtType type) {
-		this.type = type;
-	}
-	
 }

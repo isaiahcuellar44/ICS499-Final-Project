@@ -10,12 +10,13 @@ public class ProductReview {
 	@Id
 	@GeneratedValue
 	private long reviewId;
+
+	//causes crash, can we have a column of custom objects such as a column ShoppingCart?
+	//private Product product;
+	
 	private int rating;
 	private long userAccountID;
-	private long productId;
 	private String review;
-	
-	//Product product;
 
 	public ProductReview(Product product, int rating, long userAccountID, String review) {
 		super();
@@ -28,14 +29,16 @@ public class ProductReview {
 	public ProductReview() {
 
 	}
-	
-	public long getProductId() {
-		return productId;
+
+	/*
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setProductId(long productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
+	*/
 
 	public int getRating() {
 		return rating;

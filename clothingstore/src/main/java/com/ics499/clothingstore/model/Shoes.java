@@ -5,27 +5,15 @@ import javax.persistence.Entity;
 @Entity
 public class Shoes extends Product {
 	
-	private enum ShoesType {
-		sneakers, dress, sandles, boots, slippers
-	}
-	
-	private ShoesType type;
-	
-	public Shoes(float price, int stock, String description, String brand, String color, String size, String fit,
-			ShoesType type) {
+	//@GeneratedValue
+	//private long shoesId = 0;
+
+	public Shoes(float price, int stock, String description, String brand, String color, String size, String fit) {
 		super(price, stock, description, brand, color, size, fit);
-		this.type = type;
+		// TODO Auto-generated constructor stub
 	}
 
 	public Shoes() {
 
-	}
-
-	public ShoesType getType() {
-		return type;
-	}
-
-	public void setType(ShoesType type) {
-		this.type = type;
 	}
 }
