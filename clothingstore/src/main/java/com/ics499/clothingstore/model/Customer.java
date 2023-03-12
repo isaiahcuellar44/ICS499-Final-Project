@@ -7,10 +7,10 @@ import javax.persistence.GeneratedValue;
 
 @Entity
 public class Customer extends User {
-	
+
 	@GeneratedValue
 	private long customerId;
-  
+
 	private String firstName;
 	private String lastName;
 	private String address;
@@ -20,7 +20,7 @@ public class Customer extends User {
 	private Date dateAccountCreated;
 	private String email;
 	private String password;
-	
+
 //	causes crash, can we have a column of custom objects such as a column ShoppingCart?
 //	@ElementCollection
 //	private List<Transaction> transactionHistory = new ArrayList<Transaction>();
@@ -38,13 +38,13 @@ public class Customer extends User {
 		this.dateAccountCreated = dateAccountCreated;
 		this.email = email;
 	}
-	
+
 	public Customer() {
-		
+
 	}
 
 	public void addTransactionToHistory() {
-		//this.transactionHistory.add(t);
+		// this.transactionHistory.add(t);
 	}
 
 	public String getAddress() {
@@ -102,25 +102,33 @@ public class Customer extends User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	
-	
-	//public List<Transaction> getTransactionHistory() {
-		//return transactionHistory;
-	//}
+	public String getPassword() {
+		return password;
+	}
 
-	//@Override
-	//public String toString() {
-	//	return "Account [address=" + address + ", city=" + city + ", state=" + state + ", phoneNumber=" + phoneNumber
-	//			+ ", dateAccountCreated=" + dateAccountCreated + ", transactionHistory=" + transactionHistory + "]";
-	//}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	// public List<Transaction> getTransactionHistory() {
+	// return transactionHistory;
+	// }
+
+	// @Override
+	// public String toString() {
+	// return "Account [address=" + address + ", city=" + city + ", state=" + state
+	// + ", phoneNumber=" + phoneNumber
+	// + ", dateAccountCreated=" + dateAccountCreated + ", transactionHistory=" +
+	// transactionHistory + "]";
+	// }
 
 }

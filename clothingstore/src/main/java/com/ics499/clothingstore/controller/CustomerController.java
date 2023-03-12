@@ -17,40 +17,42 @@ import com.ics499.clothingstore.serviceImp.CustomerServiceImp;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-	
+
 	@Autowired
 	CustomerRepository customerRepository;
-	
+	@Autowired
+	CustomerServiceImp test;
+
 	@GetMapping("/test")
 	public String test() {
-		CustomerServiceImp test = new CustomerServiceImp();
-		test.isValid(null, null);
+
+		test.isValid("123@email.com", "abc123");
 		return "Customer Controller";
 	}
-	
+
 	@PostMapping("/save")
 	public Customer saveCustomer(@RequestBody Customer customer) {
 		return customerRepository.save(customer);
 	}
-	
+
 	@PostMapping("/saveMany")
 	public List<Customer> saveManyCustomers(@RequestBody List<Customer> customers) {
 		return customerRepository.saveAll(customers);
 	}
-	
+
 	@GetMapping("/all")
 	public List<Customer> list() {
 		return customerRepository.findAll();
 	}
-	
+
 	@GetMapping("{id}")
 	public Customer get(@PathVariable Long id) {
 		return customerRepository.getReferenceById(id);
 	}
-	
+
 	@PostMapping("/add")
 	public Customer create(@RequestBody final Customer customer) {
 		return customerRepository.saveAndFlush(customer);
 	}
-	
+
 }

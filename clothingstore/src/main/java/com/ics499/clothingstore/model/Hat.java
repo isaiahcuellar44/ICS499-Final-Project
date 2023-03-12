@@ -4,11 +4,11 @@ import javax.persistence.Entity;
 
 @Entity
 public class Hat extends Product {
-	
-	private enum HatType {
+
+	public enum HatType {
 		Baseball, Beanie, Bucket, Fedora, Top
 	}
-	
+
 	private HatType type;
 
 	public Hat(float price, int stock, String description, String brand, String color, String size, String fit,
