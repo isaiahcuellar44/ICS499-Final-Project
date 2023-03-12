@@ -2,6 +2,7 @@ package com.ics499.clothingstore.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public abstract class Product {
 	private String size;
 	private String fit;
 	
-	@OneToMany(mappedBy = "product")
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 	private List<CartItem> cartItems;
 
 	public Product(float price, int stock, String description, String brand, String color, String size, String fit) {

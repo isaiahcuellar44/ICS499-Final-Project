@@ -59,7 +59,7 @@ class ClothingstoreApplicationTests {
 		Guest guest = new Guest();
 		
 		Customer customer = new Customer("a firstname", "a lastname", "an address", "a city", 
-				"a state", "a phone number", new Date());
+				"a state", "a phone number", new Date(), "an email");
 		userRepository.save(customer);
 		userRepository.save(guest);
 		
@@ -71,53 +71,55 @@ class ClothingstoreApplicationTests {
 	@Test
 	@Order(3)
 	void addProductToUserCart() {
-		
-		//add customer to db
+		//Create a customer
 		Customer customer = new Customer("MrCart", "a lastname", "an address", "a city", 
-				"a state", "a phone number", new Date());
-		//userRepository.save(customer);
+				"a state", "a phone number", new Date(), "an email");
 		
-		//get user
-		//Customer dbCustomer = customerRepository.findByName("MrCart");
-		
-		//create user shoppingCart and set it (should be done upon construction?)
-		customer.setUserCart(new ShoppingCart());
-		
-		//get users cart (create cart if does not exist?)
+		//get the customers cart
 		ShoppingCart customerCart = customer.getUserCart();
-		System.out.println("CART: " + customerCart);
 		
 		//create nike shoes
 		Product nikeShoes = new Shoes();
 		nikeShoes.setBrand("Nike");
-		//productRepository.save(nikeShoes);
 		
-		//get nike shoes from repo
-		//Product dbShoes = productRepository.findByBrand("Nike");
-		
-		//need to create a line item in db for this shoe for this customers cart
-		//(for ordering 3 of this type of shoe)
+		//for ordering 3 of this type of shoe
 		CartItem cartItem = new CartItem(customerCart, nikeShoes, 3);
-		//cartItemRepository.save(cartItem);
-		
-		//initialize cart items (this should maybe be done on initialization?)
-		customerCart.setCartItems(new ArrayList<CartItem>());
 		
 		//add item to customer cart
 		customerCart.addToCart(cartItem);
 		
+		//update the customers cart with changes
 		customer.setUserCart(customerCart);
 		
-		//add product to db
-		productRepository.save(nikeShoes);
+		//(all these were needed before CascadeType.ALL)
+			//add product to db
+			//productRepository.save(nikeShoes);
+			
+			//add shopping cart to db
+			//shoppingCartRepository.save(customerCart);
+			
+			//add cartitem to db
+			//cartItemRepository.save(cartItem);
 		
-		//add shopping cart to db
-		shoppingCartRepository.save(customerCart);
-		
-		//add cartitem to db
-		cartItemRepository.save(cartItem);
-		
-		//add customer to db
+		//save customer to db
 		customerRepository.save(customer);
+		
+		//check that user repository is not empty
+		assertThat(userRepository.findAll()).isNotNull();
+		
+		//check that customer is in repo
+		assertThat(customerRepository.findByName("MrCart")).isNotNull();
+		
+		//get MrCart shopping cart id
+		//TODO need a SQL statement in customer repo to find a customer's cart given first name
+		
+		//confirm that a shopping cart with this shopping cart id is in the shopping cart table
+		//assertThat(shoppingCartRepository.findAllById(cartId)).isNotNull();
+		
+		//check that product is in repo
+		assertThat(productRepository.findByBrand("Nike")).isNotNull();
+		
+		//check that there is a cart item in the repo that matches the product
+		//TODO need a SQL statement in cart item repo to get a cart item based on a given product ID
 	}
 }

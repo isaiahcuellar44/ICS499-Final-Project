@@ -1,7 +1,10 @@
 package com.ics499.clothingstore.model;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,19 +19,22 @@ public class ShoppingCart {
 	@GeneratedValue
 	private long shoppingCartId;
 	
-	@OneToMany(mappedBy = "shoppingCart")
+	@OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
 	private List<CartItem> cartItems;
 	
-	@OneToOne(mappedBy = "userCart")
+	@OneToOne(mappedBy = "userCart", cascade = CascadeType.ALL)
 	private User user;
 	
-	public ShoppingCart(long userAccountId, List<CartItem> cartItems) {
+	private Date expiration;
+	
+	public ShoppingCart(List<CartItem> cartItems) {
 		super();
 		this.cartItems = cartItems;
 	}
-
+	
 	public ShoppingCart() {
-
+		super();
+		this.cartItems = new ArrayList<CartItem>();
 	}
 
 	public long timeToLive() {
@@ -53,6 +59,14 @@ public class ShoppingCart {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Date getExpiration() {
+		return expiration;
+	}
+
+	public void setExpiration(Date expiration) {
+		this.expiration = expiration;
 	}
 	
 	//@Override

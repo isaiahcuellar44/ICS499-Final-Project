@@ -1,5 +1,6 @@
 package com.ics499.clothingstore.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,16 +17,14 @@ public abstract class User {
 	@GeneratedValue
 	private long userId;
 	
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
 	private ShoppingCart userCart;
     
-	public User(ShoppingCart userCart) {
+	public User() {
 		super();
-		this.userCart = userCart;
+		this.userCart = new ShoppingCart();
 	}
-	
-	protected User() {}
 
 	public long getUserId() {
 		return userId;
