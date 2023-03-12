@@ -19,6 +19,7 @@ public class Customer extends User {
 	private String phoneNumber;
 	private Date dateAccountCreated;
 	private String email;
+	private String password;
 	
 //	causes crash, can we have a column of custom objects such as a column ShoppingCart?
 //	@ElementCollection
