@@ -1,5 +1,6 @@
 package com.ics499.clothingstore.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,11 +14,11 @@ public class CartItem {
 	@GeneratedValue
 	private long cartItemId;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn
 	private ShoppingCart shoppingCart;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Product product;
 	
 	private int quantity;
