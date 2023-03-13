@@ -1,5 +1,7 @@
 package com.ics499.clothingstore.serviceImp;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -27,6 +29,15 @@ public class CustomerServiceImp implements CustomerService {
 		} else {
 			return false;
 		}
+	}
+
+	public String createCustoemr(String firstName, String lastName, String address, String city, String state,
+			String phoneNumber, String email) {
+		Date d1 = new Date();
+//		Customer newCustomer = new Customer(firstName, lastName, address, city, state, phoneNumber, d1, email);
+		Customer newCustomer = new Customer();
+		customerRepository.save(newCustomer);
+		return "Customer Created";
 	}
 
 }

@@ -23,11 +23,24 @@ public class CustomerController {
 	@Autowired
 	CustomerServiceImp test;
 
+	public String customerPage() {
+		return "Customer Page";
+
+	}
+
 	@GetMapping("/test")
 	public String test() {
 
 		test.isValid("123@email.com", "abc123");
 		return "Customer Controller";
+	}
+
+	@GetMapping("/creatCustomer")
+	public String createCustomer() {
+//		String firstName, String lastName, String address, String city, String state,
+//		String phoneNumber, String email
+		test.createCustoemr("bob", "Anderson", "street", "City town", "AL", "555-555-5555", "bAnderson@email.com");
+		return "Customer Created";
 	}
 
 	@PostMapping("/save")

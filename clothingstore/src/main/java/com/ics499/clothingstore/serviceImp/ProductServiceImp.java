@@ -1,6 +1,7 @@
 package com.ics499.clothingstore.serviceImp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.ics499.clothingstore.model.Hat;
 import com.ics499.clothingstore.model.Hat.HatType;
@@ -17,7 +18,8 @@ import com.ics499.clothingstore.repository.ProductRepository;
 import com.ics499.clothingstore.repository.ShirtRepository;
 import com.ics499.clothingstore.repository.ShoesRepository;
 
-public class ProjectServiceImp {
+@SpringBootApplication
+public class ProductServiceImp {
 
 	@Autowired
 	private ProductRepository<?> productRepository;
@@ -33,28 +35,35 @@ public class ProjectServiceImp {
 		productRepository.save(productToUpdate);// save function in repo may need to be changed.
 	}
 
+	public void addStock(long productId, int amount) {
+		Product productToUpdate = productRepository.findById(productId);
+		productToUpdate.setStock(productToUpdate.getStock() + amount);
+		productRepository.save(productToUpdate);
+	}
+
 	public void addHat(float price, int stock, String description, String brand, String color, String size, String fit,
 			HatType type) {
-		Product hatToAdd = new Hat(price, stock, description, brand, color, size, fit, type);
-		hatRepository.save(hatToAdd);
+		Hat hatToAdd = new Hat(price, stock, description, brand, color, size, fit, type);
+		productRepository.save(hatToAdd);
+//		productRepository.addHat(price, description, brand, color, size, fit, type);
 	}
 
 	public void addPants(float price, int stock, String description, String brand, String color, String size,
 			String fit, PantsType type, boolean pockets, boolean zipper, boolean beltloops) {
-		Product pantsToAdd = new Pants(price, stock, description, brand, color, size, fit, type, pockets, zipper,
+		Pants pantsToAdd = new Pants(price, stock, description, brand, color, size, fit, type, pockets, zipper,
 				beltloops);
-		pantsRepository.save(pantsToAdd);
+		productRepository.save(pantsToAdd);
 	}
 
 	public void addShirt(float price, int stock, String description, String brand, String color, String size,
 			String fit, ShirtType type) {
-		Product shirtToAdd = new Shirt(price, stock, description, brand, color, size, fit, type);
-		shirtRepository.save(shirtToAdd);
+		Shirt shirtToAdd = new Shirt(price, stock, description, brand, color, size, fit, type);
+		productRepository.save(shirtToAdd);
 	}
 
 	public void addShoes(float price, int stock, String description, String brand, String color, String size,
 			String fit, ShoesType type) {
-		Product shoesToAdd = new Shoes(price, stock, description, brand, color, size, fit, type);
-		shoeRepository.save(shoesToAdd);
+		Shoes shoesToAdd = new Shoes(price, stock, description, brand, color, size, fit, type);
+		productRepository.save(shoesToAdd);
 	}
 }
