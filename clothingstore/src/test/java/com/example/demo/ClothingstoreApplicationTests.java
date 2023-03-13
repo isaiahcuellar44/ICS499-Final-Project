@@ -122,4 +122,22 @@ class ClothingstoreApplicationTests {
 		//check that there is a cart item in the repo that matches the product
 		//TODO need a SQL statement in cart item repo to get a cart item based on a given product ID
 	}
+	
+	@Test
+	@Order(4)
+	void addTransactionToUser() {
+	}
+	
+	@Test
+	@Order(5)
+	void submitOrder() {
+		//add transaction to transaction history for user
+		
+		//clear cart items for this user
+	}
+	
+	@Test
+	@Order(6)
+	void addRewardsToUser() {
+	}
 }

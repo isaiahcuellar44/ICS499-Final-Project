@@ -2,14 +2,19 @@ package com.ics499.clothingstore.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Customer extends User {
 
 	@GeneratedValue
 	private long customerId;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Rewards rewards;
 
 	private String firstName;
 	private String lastName;
@@ -21,14 +26,9 @@ public class Customer extends User {
 	private String email;
 	private String password;
 
-//	causes crash, can we have a column of custom objects such as a column ShoppingCart?
-//	@ElementCollection
-//	private List<Transaction> transactionHistory = new ArrayList<Transaction>();
-//	private List<Rewards> customerRewards;
-
 	public Customer(String firstName, String lastName, String address, String city, String state, String phoneNumber,
 			Date dateAccountCreated, String email) {
-		super();
+		super(new ShoppingCart());
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -40,11 +40,7 @@ public class Customer extends User {
 	}
 
 	public Customer() {
-
-	}
-
-	public void addTransactionToHistory() {
-		// this.transactionHistory.add(t);
+		super(new ShoppingCart());
 	}
 
 	public String getAddress() {
@@ -119,9 +115,13 @@ public class Customer extends User {
 		this.password = password;
 	}
 
-	// public List<Transaction> getTransactionHistory() {
-	// return transactionHistory;
-	// }
+	public Rewards getRewards() {
+		return rewards;
+	}
+
+	public void setRewards(Rewards rewards) {
+		this.rewards = rewards;
+	}
 
 	// @Override
 	// public String toString() {

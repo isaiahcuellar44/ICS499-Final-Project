@@ -2,9 +2,11 @@ package com.ics499.clothingstore.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Transaction implements Payment {
@@ -16,15 +18,14 @@ public class Transaction implements Payment {
 	private String creditCardNumber;
 	private int creditCardCV;
 	private Date creditCardExpirationDate;
-	
-	//causes crash, can we have a column of custom objects such as a column ShoppingCart?
-	//private ShoppingCart cart;
 	private long shoppingCartId;
-	
 	private double total;
 	private Date transactionDate;
 	private boolean isReturn;// should returns be it's own subclass?
 	private long userAccountId;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private User user;
 
 	public Transaction(String paymentMethod, String creditCardNumber, int creditCardCV, Date creditCardExpirationDate,
 			ShoppingCart cart, double total, Date transactionDate, boolean isReturn, long userAccountId) {
@@ -134,7 +135,6 @@ public class Transaction implements Payment {
 	*/
 	@Override
 	public String doSomeEncrypting() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -146,4 +146,11 @@ public class Transaction implements Payment {
 		this.shoppingCartId = shoppingCartId;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

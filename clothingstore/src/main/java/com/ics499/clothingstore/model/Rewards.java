@@ -1,8 +1,10 @@
 package com.ics499.clothingstore.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Rewards {
@@ -13,6 +15,9 @@ public class Rewards {
 	private int currentPoints;
 	private int redeemedPoints;
 	private int accountLifespanPoints;
+	
+	@OneToOne(mappedBy = "rewards", cascade = CascadeType.ALL)
+	private Customer customer;
 
 	public Rewards(int currentPoints, int redeemedPoints, int accountLifespanPoints) {
 		this.currentPoints = currentPoints;
@@ -46,6 +51,14 @@ public class Rewards {
 
 	public void setAccountLifespanPoints(int accountLifespanPoints) {
 		this.accountLifespanPoints = accountLifespanPoints;
+	}
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	@Override
