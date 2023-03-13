@@ -25,23 +25,21 @@ public class ProductController {
 	public String test() {
 		return "Product Controller";
 	}
-	
-	
+
 	@GetMapping("/all")
 	public List<Product> list() {
 		return productRepository.findAll();
 	}
-	
+
 	@GetMapping("{id}")
 	public Product get(@PathVariable Long id) {
 		return productRepository.getReferenceById(id);
 	}
-	
-	
+
 	@PostMapping("/add")
 	public Product create(@RequestBody final Product course) {
 		return productRepository.saveAndFlush(course);
-		
+
 	}
-	
+
 }

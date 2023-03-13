@@ -4,13 +4,13 @@ import javax.persistence.Entity;
 
 @Entity
 public class Shirt extends Product {
-	
-	private enum ShirtType {
+
+	public enum ShirtType {
 		tShirt, polo, dress, turtleneck, sweat, sleveless, vNeck
 	}
-	
+
 	private ShirtType type;
-	
+
 	public Shirt(float price, int stock, String description, String brand, String color, String size, String fit,
 			ShirtType type) {
 		super(price, stock, description, brand, color, size, fit);
@@ -28,5 +28,5 @@ public class Shirt extends Product {
 	public void setType(ShirtType type) {
 		this.type = type;
 	}
-	
+
 }

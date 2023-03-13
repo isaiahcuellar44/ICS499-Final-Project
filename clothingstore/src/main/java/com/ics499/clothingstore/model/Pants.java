@@ -5,26 +5,26 @@ import javax.persistence.Entity;
 @Entity
 public class Pants extends Product {
 
-	private enum PantsType {
+	public enum PantsType {
 		Jeans, Cargo, Dress, Khaki, Sweat, Pajama
 	}
-	
+
 	private PantsType type;
 	private boolean pockets;
 	private boolean zipper;
 	private boolean beltloops;
-	
-	public Pants(float price, int stock, String description, String brand, String color, String size, String fit
-			, PantsType type, boolean pockets, boolean zipper, boolean beltloops) {
+
+	public Pants(float price, int stock, String description, String brand, String color, String size, String fit,
+			PantsType type, boolean pockets, boolean zipper, boolean beltloops) {
 		super(price, stock, description, brand, color, size, fit);
 		this.type = type;
 		this.pockets = pockets;
 		this.zipper = zipper;
 		this.beltloops = beltloops;
 	}
-	
+
 	public Pants() {
-		
+
 	}
 
 	public PantsType getType() {
