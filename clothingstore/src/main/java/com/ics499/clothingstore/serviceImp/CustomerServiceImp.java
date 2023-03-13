@@ -17,7 +17,7 @@ public class CustomerServiceImp implements CustomerService {
 	@Override
 	public boolean isValid(String username, String password) {
 
-		Customer foundCustomer = customerRepository.findByName(username);
+		Customer foundCustomer = customerRepository.findByFirstName(username);
 
 		if (foundCustomer == null) {
 			System.out.println("Customer does not exist");
@@ -31,7 +31,7 @@ public class CustomerServiceImp implements CustomerService {
 		}
 	}
 
-	public String createCustoemr(String firstName, String lastName, String address, String city, String state,
+	public String createCustomer(String firstName, String lastName, String address, String city, String state,
 			String phoneNumber, String email) {
 		Date d1 = new Date();
 //		Customer newCustomer = new Customer(firstName, lastName, address, city, state, phoneNumber, d1, email);

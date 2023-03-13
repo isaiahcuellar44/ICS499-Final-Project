@@ -99,6 +99,10 @@ public abstract class Product {
 	public void setFit(String fit) {
 		this.fit = fit;
 	}
+	
+	public long getProductId() {
+		return productId;
+	}
 
 	@Override
 	public String toString() {

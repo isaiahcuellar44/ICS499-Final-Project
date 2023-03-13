@@ -1,12 +1,16 @@
 package com.ics499.clothingstore.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Transaction implements Payment {
@@ -14,6 +18,7 @@ public class Transaction implements Payment {
 	@Id
 	@GeneratedValue
 	private long transactionId;
+	
 	private String PaymentMethod;// could this be a enum? like Visa, Mastercard, discover?
 	private String creditCardNumber;
 	private int creditCardCV;
@@ -26,6 +31,9 @@ public class Transaction implements Payment {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private User user;
+	
+	@OneToOne
+	private ShoppingCart transactionCart;
 
 	public Transaction(String paymentMethod, String creditCardNumber, int creditCardCV, Date creditCardExpirationDate,
 			ShoppingCart cart, double total, Date transactionDate, boolean isReturn, long userAccountId) {

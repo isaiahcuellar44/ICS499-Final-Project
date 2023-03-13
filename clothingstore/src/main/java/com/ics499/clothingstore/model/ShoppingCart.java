@@ -25,16 +25,21 @@ public class ShoppingCart {
 	@OneToOne(mappedBy = "userCart", cascade = CascadeType.ALL)
 	private User user;
 	
+	@OneToOne(mappedBy = "transactionCart", cascade = CascadeType.ALL)
+	private Transaction transaction;
+	
 	private Date expiration;
 	
 	public ShoppingCart(List<CartItem> cartItems) {
 		super();
 		this.cartItems = cartItems;
+		transaction = new Transaction();
 	}
 	
 	public ShoppingCart() {
 		super();
 		this.cartItems = new ArrayList<CartItem>();
+		transaction = new Transaction();
 	}
 
 	public long timeToLive() {
@@ -67,6 +72,18 @@ public class ShoppingCart {
 
 	public void setExpiration(Date expiration) {
 		this.expiration = expiration;
+	}
+
+	public long getShoppingCartId() {
+		return shoppingCartId;
+	}
+
+	public Transaction getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(Transaction transaction) {
+		this.transaction = transaction;
 	}
 	
 	//@Override

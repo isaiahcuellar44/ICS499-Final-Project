@@ -60,6 +60,10 @@ public class Rewards {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+	
+	public long getRewardsId() {
+		return rewardsId;
+	}
 
 	@Override
 	public String toString() {

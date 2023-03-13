@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,17 @@ import com.ics499.clothingstore.model.CartItem;
 import com.ics499.clothingstore.model.Customer;
 import com.ics499.clothingstore.model.Guest;
 import com.ics499.clothingstore.model.Product;
+import com.ics499.clothingstore.model.Rewards;
+import com.ics499.clothingstore.model.Shirt;
 import com.ics499.clothingstore.model.Shoes;
 import com.ics499.clothingstore.model.ShoppingCart;
+import com.ics499.clothingstore.model.Transaction;
 import com.ics499.clothingstore.repository.CartItemRepository;
 import com.ics499.clothingstore.repository.CustomerRepository;
 import com.ics499.clothingstore.repository.ProductRepository;
+import com.ics499.clothingstore.repository.RewardsRepository;
 import com.ics499.clothingstore.repository.ShoppingCartRepository;
+import com.ics499.clothingstore.repository.TransactionRepository;
 import com.ics499.clothingstore.repository.UserRepository;
 
 @SpringBootTest(classes = ClothingstoreApplication.class)
@@ -42,6 +49,12 @@ class ClothingstoreApplicationTests {
 	
 	@Autowired
 	private ShoppingCartRepository shoppingCartRepository;
+	
+	@Autowired
+	private TransactionRepository transactionRepository;
+	
+	@Autowired
+	private RewardsRepository rewardsRepository;
 
 	@Test
 	@Order(1)
@@ -49,9 +62,6 @@ class ClothingstoreApplicationTests {
 		assertThat(userRepository).isNotNull();
 	}
 	
-	//String firstName, String lastName, String address, String city, String state, String phoneNumber,
-	//Date dateAccountCreated
-
 	@Test
 	@Order(2)
 	void createUsers() {
@@ -60,10 +70,11 @@ class ClothingstoreApplicationTests {
 		
 		Customer customer = new Customer("a firstname", "a lastname", "an address", "a city", 
 				"a state", "a phone number", new Date(), "an email");
+		
 		userRepository.save(customer);
 		userRepository.save(guest);
 		
-		Customer databaseCustomer = customerRepository.findByName("a firstname");
+		Customer databaseCustomer = customerRepository.findByFirstName("a firstname");
 		assertThat(databaseCustomer).isNotNull();
 		assertThat(databaseCustomer.getFirstName()).isEqualTo("a firstname");
 	}
@@ -72,7 +83,7 @@ class ClothingstoreApplicationTests {
 	@Order(3)
 	void addProductToUserCart() {
 		//Create a customer
-		Customer customer = new Customer("MrCart", "a lastname", "an address", "a city", 
+		Customer customer = new Customer("Greg", "a lastname", "an address", "a city", 
 				"a state", "a phone number", new Date(), "an email");
 		
 		//get the customers cart
@@ -91,53 +102,71 @@ class ClothingstoreApplicationTests {
 		//update the customers cart with changes
 		customer.setUserCart(customerCart);
 		
-		//(all these were needed before CascadeType.ALL)
-			//add product to db
-			//productRepository.save(nikeShoes);
-			
-			//add shopping cart to db
-			//shoppingCartRepository.save(customerCart);
-			
-			//add cartitem to db
-			//cartItemRepository.save(cartItem);
-		
 		//save customer to db
 		customerRepository.save(customer);
 		
 		//check that user repository is not empty
-		assertThat(userRepository.findAll()).isNotNull();
+		assertThat(userRepository.findAll()).isNotEmpty();
 		
 		//check that customer is in repo
-		assertThat(customerRepository.findByName("MrCart")).isNotNull();
+		assertThat(customerRepository.findByFirstName("Greg")).isNotNull();
 		
-		//get MrCart shopping cart id
-		//TODO need a SQL statement in customer repo to find a customer's cart given first name
+		//get MrCart's cart id
+		long cartId = customerRepository.findByFirstName("Greg").getUserCart().getShoppingCartId();
 		
 		//confirm that a shopping cart with this shopping cart id is in the shopping cart table
-		//assertThat(shoppingCartRepository.findAllById(cartId)).isNotNull();
+		assertThat(shoppingCartRepository.findById(cartId)).isNotEmpty();
 		
 		//check that product is in repo
-		assertThat(productRepository.findByBrand("Nike")).isNotNull();
+		assertThat(productRepository.findAllByBrand("Nike")).isNotNull();
 		
-		//check that there is a cart item in the repo that matches the product
-		//TODO need a SQL statement in cart item repo to get a cart item based on a given product ID
+		//check that there is a cart item with a product id that is shared with a product in the product table
+		long productId = productRepository.findByBrand("Nike").getProductId();
+		assertThat(cartItemRepository.findAllByProductId(productId).get(0).getProduct().getBrand().equals("Nike"));
+		
+		//check that this cart item is in this shopping cart
+		assertThat(cartItemRepository.findAllByShoppingCartId(cartId).get(0).getProduct().getBrand().equals("Nike"));
 	}
 	
 	@Test
 	@Order(4)
+	@Transactional
 	void addTransactionToUser() {
+		//create dummy transaction
+		Transaction transaction = new Transaction();
+		transaction.setTotal(130);
+		
+		//get a customer from repo
+		Customer customer = customerRepository.findByFirstName("Greg");
+		
+		//add transaction to the customer
+		customer.addTransaction(transaction);
+		
+		//save the new transaction
+		customerRepository.save(customer);
+		
+		//pull from repo again to confirm the transaction was applied to database
+		customer = customerRepository.findByFirstName("Greg");
+		
+		//check if the transaction is there and that the total is what we set it to before
+		assertThat(customer.getTransactions().get(0).getTotal() == 130);
+		
+		//check if the transaction was added to the database
+		assertThat(transactionRepository.findAll()).isNotEmpty();
 	}
 	
 	@Test
 	@Order(5)
-	void submitOrder() {
-		//add transaction to transaction history for user
-		
-		//clear cart items for this user
-	}
-	
-	@Test
-	@Order(6)
 	void addRewardsToUser() {
+		//get a customer from repo
+		Customer customer = customerRepository.findByFirstName("Greg");
+		
+		customer.setRewards(new Rewards(3, 5, 10));
+		
+		customerRepository.save(customer);
+		
+		long rewardsId = customerRepository.findByFirstName("Greg").getRewards().getRewardsId();
+
+		assertThat(rewardsRepository.findById(rewardsId)).isNotEmpty();
 	}
 }

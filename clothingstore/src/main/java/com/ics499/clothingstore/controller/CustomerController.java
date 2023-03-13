@@ -39,7 +39,7 @@ public class CustomerController {
 	public String createCustomer() {
 //		String firstName, String lastName, String address, String city, String state,
 //		String phoneNumber, String email
-		test.createCustoemr("bob", "Anderson", "street", "City town", "AL", "555-555-5555", "bAnderson@email.com");
+		test.createCustomer("bob", "Anderson", "street", "City town", "AL", "555-555-5555", "bAnderson@email.com");
 		return "Customer Created";
 	}
 
