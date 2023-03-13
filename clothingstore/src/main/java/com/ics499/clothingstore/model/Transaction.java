@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Transaction implements Payment {
@@ -16,6 +17,9 @@ public class Transaction implements Payment {
 	private String creditCardNumber;
 	private int creditCardCV;
 	private Date creditCardExpirationDate;
+	
+	@ManyToOne
+	private User user;
 	
 	//causes crash, can we have a column of custom objects such as a column ShoppingCart?
 	//private ShoppingCart cart;

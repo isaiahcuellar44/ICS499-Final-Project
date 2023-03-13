@@ -1,15 +1,22 @@
 package com.ics499.clothingstore.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Customer extends User {
 	
 	@GeneratedValue
 	private long customerId;
+	
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+	private Rewards rewards;
 	
 	private String firstName;
 	private String lastName;

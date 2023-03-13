@@ -3,6 +3,7 @@ package com.ics499.clothingstore.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Rewards {
@@ -13,6 +14,9 @@ public class Rewards {
 	private int currentPoints;
 	private int redeemedPoints;
 	private int accountLifespanPoints;
+	
+	@OneToOne(mappedBy = "rewards")
+	private Customer customer;
 
 	public Rewards(int currentPoints, int redeemedPoints, int accountLifespanPoints) {
 		this.currentPoints = currentPoints;
