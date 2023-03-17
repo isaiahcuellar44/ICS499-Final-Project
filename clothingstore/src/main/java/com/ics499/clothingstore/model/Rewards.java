@@ -35,7 +35,7 @@ public class Rewards {
 	
 	/**
 	 * Not sure if this is better or not, but this creates a linking table between customer and rewards. 
-	 * This at least looks more like what I am used to seeing. -- TomW 3/17
+	 * This at least looks more like what I am used to seeing. -- TomW 
 	 */	
 //	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //	@JoinTable(

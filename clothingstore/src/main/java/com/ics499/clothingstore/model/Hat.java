@@ -17,7 +17,7 @@ public class Hat extends Product {
 		this.type = type;
 	}
 //
-//	public Hat() {  // commented out, not needed threw error -- TomW 3/17
+//	public Hat() {  // commented out, not needed threw error -- TomW 
 //
 //	}
 

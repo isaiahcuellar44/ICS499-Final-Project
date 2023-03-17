@@ -36,7 +36,7 @@ public class ProductReview {
 	}
 	
 	public long getProductId() {
-		return this.product.getProductId(); // -- TomW 3/17
+		return this.product.getProductId(); // -- TomW 
 	}
 
 //	public void setProductId(long productId) {

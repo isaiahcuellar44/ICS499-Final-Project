@@ -122,7 +122,7 @@ public class Customer extends User {
 
 	
 
-//	public Rewards getRewards() {   // took these out, customer rewards should be independent of customer object 3/17 TomW
+//	public Rewards getRewards() {   // took these out, customer rewards should be independent of customer object -- TomW
 //		return rewards;
 //	}
 //

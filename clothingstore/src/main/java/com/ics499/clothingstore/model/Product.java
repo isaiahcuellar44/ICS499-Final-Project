@@ -43,7 +43,7 @@ public abstract class Product {
 		this.fit = fit;
 	}
 
-//	public Product() {   // not needed, threw error -- TomW 3/17
+//	public Product() {   // not needed, threw error -- TomW 
 //
 //	}
 	

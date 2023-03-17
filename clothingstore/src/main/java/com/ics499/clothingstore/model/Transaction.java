@@ -29,10 +29,10 @@ public class Transaction implements Payment {
 	private long userAccountId;
 	
 	@OneToOne
-	@JoinColumn(name = "shoppingCartID")                           // TomW 3/17
+	@JoinColumn(name = "shoppingCartID")                           // TomW 
 	ShoppingCart shoppingCart;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TomW 3/17
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TomW 
 	@JoinTable(
 			name = "CustomerTransactions",
 			joinColumns = @JoinColumn(name = "transactionID"),

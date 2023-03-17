@@ -17,7 +17,7 @@ public class Shirt extends Product {
 		this.type = type;
 	}
 
-//	public Shirt() { // -- Commented out, threw error because Product (super) constructor is undefined. -- TomW 3/17
+//	public Shirt() { // -- Commented out, threw error because Product (super) constructor is undefined. -- TomW 
 //
 //	}
 
