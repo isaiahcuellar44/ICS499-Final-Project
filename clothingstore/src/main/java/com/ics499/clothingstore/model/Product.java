@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -28,6 +29,8 @@ public abstract class Product {
 	
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 	private List<CartItem> cartItems;
+	
+
 
 	public Product(float price, int stock, String description, String brand, String color, String size, String fit) {
 		super();
@@ -40,8 +43,12 @@ public abstract class Product {
 		this.fit = fit;
 	}
 
-	public Product() {
-
+//	public Product() {   // not needed, threw error -- TomW 3/17
+//
+//	}
+	
+	public long getProductId() { // added getter for ProductId -- TomW 3/17
+		return productId;
 	}
 
 	public float getPrice() {

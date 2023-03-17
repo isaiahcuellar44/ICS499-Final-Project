@@ -6,26 +6,43 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
 public class ShoppingCart {
-
+	private Date expiration;
+	
 	@Id
 	@GeneratedValue
 	private long shoppingCartId;
 	
-	@OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
-	private List<CartItem> cartItems;
+//	@OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
+//	private List<CartItem> cartItems;
+//	
 	
-	@OneToOne(mappedBy = "userCart", cascade = CascadeType.ALL)
+	
+	
+	// I want to come back to this one... Not sure how to handle this... Just UserID?
+	//@OneToOne(mappedBy = "userCart", cascade = CascadeType.ALL)
+	
+	@OneToOne
+	@JoinColumn (name = "UserID")
 	private User user;
 	
-	private Date expiration;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinTable(
+			name = "CartItem",
+			joinColumns = @JoinColumn(name = "shoppingCartID"),
+			inverseJoinColumns = @JoinColumn(name = "ProductID")
+			)
+	private List<CartItem> cartItems;
+	
 	
 	public ShoppingCart(List<CartItem> cartItems) {
 		super();
@@ -43,6 +60,14 @@ public class ShoppingCart {
 	
 	public void addToCart(CartItem cartItem) {
 		cartItems.add(cartItem);
+	}
+	
+	public void removeItem(CartItem cartItem) {
+		cartItems.remove(cartItem);
+	}
+	
+	public void emptyCart() {
+		cartItems.clear();
 	}
 
 	public List<CartItem> getCartItems() {
@@ -68,6 +93,11 @@ public class ShoppingCart {
 	public void setExpiration(Date expiration) {
 		this.expiration = expiration;
 	}
+	
+	public long getId() {
+		return this.shoppingCartId;
+	}
+	
 	
 	//@Override
 	//public String toString() {

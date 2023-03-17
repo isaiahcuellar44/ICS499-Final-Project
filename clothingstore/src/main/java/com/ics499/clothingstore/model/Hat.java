@@ -16,10 +16,10 @@ public class Hat extends Product {
 		super(price, stock, description, brand, color, size, fit);
 		this.type = type;
 	}
-
-	public Hat() {
-
-	}
+//
+//	public Hat() {  // commented out, not needed threw error -- TomW 3/17
+//
+//	}
 
 	public HatType getType() {
 		return type;
