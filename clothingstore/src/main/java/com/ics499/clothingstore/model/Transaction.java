@@ -4,9 +4,13 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Transaction implements Payment {
@@ -18,23 +22,31 @@ public class Transaction implements Payment {
 	private String creditCardNumber;
 	private int creditCardCV;
 	private Date creditCardExpirationDate;
-	private long shoppingCartId;
+	//private long shoppingCartId;
 	private double total;
 	private Date transactionDate;
 	private boolean isReturn;// should returns be it's own subclass?
 	private long userAccountId;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private User user;
+	@OneToOne
+	@JoinColumn(name = "shoppingCartID")                           // TomW 3/17
+	ShoppingCart shoppingCart;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TomW 3/17
+	@JoinTable(
+			name = "CustomerTransactions",
+			joinColumns = @JoinColumn(name = "transactionID"),
+			inverseJoinColumns = @JoinColumn(name = "userID"))
+	private User user;	
 
 	public Transaction(String paymentMethod, String creditCardNumber, int creditCardCV, Date creditCardExpirationDate,
-			ShoppingCart cart, double total, Date transactionDate, boolean isReturn, long userAccountId) {
+			ShoppingCart shoppingCart, double total, Date transactionDate, boolean isReturn, long userAccountId) {
 		super();
 		PaymentMethod = paymentMethod;
 		this.creditCardNumber = creditCardNumber;
 		this.creditCardCV = creditCardCV;
 		this.creditCardExpirationDate = creditCardExpirationDate;
-		//this.cart = cart;
+		this.shoppingCart = shoppingCart;
 		this.total = total;
 		this.transactionDate = transactionDate;
 		this.isReturn = isReturn;
@@ -45,12 +57,12 @@ public class Transaction implements Payment {
 
 	}
 
-	/**
-	 * does this generate and return a PDF as a receipt?
-	 */
-	public void printReceipt() {
-
-	}
+//	/**
+//	 * does this generate and return a PDF as a receipt?
+//	 */
+//	public void printReceipt() {   // commented out, this should be in services -- TomW 3/17
+//
+//	}
 
 	public String getPaymentMethod() {
 		return PaymentMethod;
@@ -83,15 +95,15 @@ public class Transaction implements Payment {
 	public void setCreditCardExpirationDate(Date creditCardExpirationDate) {
 		this.creditCardExpirationDate = creditCardExpirationDate;
 	}
-	/*
+	
 	public ShoppingCart getCart() {
-		return cart;
+		return shoppingCart;
 	}
 
-	public void setCart(ShoppingCart cart) {
-		this.cart = cart;
+	public void setCart(ShoppingCart shoppingCart) {
+		this.shoppingCart = shoppingCart;
 	}
-	 */
+	 
 	public double getTotal() {
 		return total;
 	}
@@ -139,12 +151,13 @@ public class Transaction implements Payment {
 	}
 
 	public long getShoppingCartId() {
-		return shoppingCartId;
+		//return shoppingCartId;
+		return shoppingCart.getId();
 	}
 
-	public void setShoppingCartId(long shoppingCartId) {
-		this.shoppingCartId = shoppingCartId;
-	}
+//	public void setShoppingCartId(long shoppingCartId) {
+//		this.shoppingCartId = shoppingCartId;
+//	}
 
 	public User getUser() {
 		return user;

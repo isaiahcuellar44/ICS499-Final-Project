@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -14,7 +15,7 @@ public class Customer extends User {
 	private long customerId;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	private Rewards rewards;
+	private Rewards rewards; 
 
 	private String firstName;
 	private String lastName;
@@ -43,6 +44,10 @@ public class Customer extends User {
 		super(new ShoppingCart());
 	}
 
+	public long getId() {
+		return this.customerId;
+	}
+	
 	public String getAddress() {
 		return address;
 	}
@@ -115,13 +120,15 @@ public class Customer extends User {
 		this.password = password;
 	}
 
-	public Rewards getRewards() {
-		return rewards;
-	}
+	
 
-	public void setRewards(Rewards rewards) {
-		this.rewards = rewards;
-	}
+//	public Rewards getRewards() {   // took these out, customer rewards should be independent of customer object 3/17 TomW
+//		return rewards;
+//	}
+//
+//	public void setRewards(Rewards rewards) {
+//		this.rewards = rewards;
+//	}
 
 	// @Override
 	// public String toString() {

@@ -1,8 +1,12 @@
 package com.ics499.clothingstore.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ProductReview {
@@ -12,14 +16,16 @@ public class ProductReview {
 	private long reviewId;
 	private int rating;
 	private long userAccountID;
-	private long productId;
+	//private long productId;
 	private String review;
 	
-	//Product product;
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "ProductID")
+	Product product;
 
 	public ProductReview(Product product, int rating, long userAccountID, String review) {
 		super();
-		//this.product = product;
+		this.product = product;
 		this.rating = rating;
 		this.userAccountID = userAccountID;
 		this.review = review;
@@ -30,13 +36,17 @@ public class ProductReview {
 	}
 	
 	public long getProductId() {
-		return productId;
+		return this.product.getProductId(); // -- TomW 3/17
 	}
 
-	public void setProductId(long productId) {
-		this.productId = productId;
-	}
+//	public void setProductId(long productId) {
+//		this.productId = productId;
+//	}
 
+	public long getId() {
+		return this.reviewId;
+	}
+	
 	public int getRating() {
 		return rating;
 	}

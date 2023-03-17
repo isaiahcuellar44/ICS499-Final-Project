@@ -23,9 +23,9 @@ public class Pants extends Product {
 		this.beltloops = beltloops;
 	}
 
-	public Pants() {
-
-	}
+//	public Pants() {  // commented out, not needed threw error -- TomW 3/17
+//
+//	}
 
 	public PantsType getType() {
 		return type;

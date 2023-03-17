@@ -15,10 +15,11 @@ public class CartItem {
 	private long cartItemId;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn
+	@JoinColumn(name = "ShoppingCartID")
 	private ShoppingCart shoppingCart;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ProductID")
 	private Product product;
 	
 	private int quantity;
@@ -30,7 +31,7 @@ public class CartItem {
 		this.quantity = quantity;
 	}
 	
-	public CartItem() { }
+	//public CartItem() { }
 
 	public ShoppingCart getShoppingCart() {
 		return shoppingCart;
@@ -54,5 +55,9 @@ public class CartItem {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+	
+	public long getId() {
+		return this.cartItemId;
 	}
 }
