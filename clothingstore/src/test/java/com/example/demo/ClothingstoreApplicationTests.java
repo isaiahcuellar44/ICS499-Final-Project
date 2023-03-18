@@ -79,7 +79,7 @@ class ClothingstoreApplicationTests {
 		ShoppingCart customerCart = customer.getUserCart();
 		
 		//create nike shoes
-		Product nikeShoes = new Shoes();
+		Product nikeShoes = new Shoes(0, 0, null, null, null, null, null, null);
 		nikeShoes.setBrand("Nike");
 		
 		//for ordering 3 of this type of shoe

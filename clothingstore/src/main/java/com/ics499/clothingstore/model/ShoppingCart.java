@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ShoppingCart {
 	private Date expiration;
@@ -31,10 +33,12 @@ public class ShoppingCart {
 	// I want to come back to this one... Not sure how to handle this... Just UserID?
 	//@OneToOne(mappedBy = "userCart", cascade = CascadeType.ALL)
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn (name = "UserID")
 	private User user;
 	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(
 			name = "CartItem",
