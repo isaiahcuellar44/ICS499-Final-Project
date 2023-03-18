@@ -9,5 +9,5 @@ import com.ics499.clothingstore.model.Customer;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	
 	@Query("SELECT c FROM Customer c WHERE c.firstName = ?1")
-	Customer findByName(@Param("name") String name);
+	Customer findByFirstName(@Param("name") String name);
 }

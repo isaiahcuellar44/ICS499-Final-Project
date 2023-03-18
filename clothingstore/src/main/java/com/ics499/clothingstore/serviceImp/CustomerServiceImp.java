@@ -17,7 +17,7 @@ public class CustomerServiceImp implements CustomerService {
 	@Override
 	public boolean isValid(String username, String password) {
 
-		Customer foundCustomer = customerRepository.findByName(username);
+		Customer foundCustomer = customerRepository.findByFirstName(username);
 
 		if (foundCustomer == null) {
 			System.out.println("Customer does not exist");

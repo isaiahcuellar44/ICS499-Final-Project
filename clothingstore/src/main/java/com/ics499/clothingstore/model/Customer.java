@@ -123,8 +123,6 @@ public class Customer extends User {
 		this.password = password;
 	}
 
-	
-
 //	public Rewards getRewards() {   // took these out, customer rewards should be independent of customer object -- TomW
 //		return rewards;
 //	}
