@@ -17,9 +17,9 @@ public class Shoes extends Product {
 		this.type = type;
 	}
 
-//	public Shoes() { //-- Commented out, threw error because Product (super) constructor is undefined. -- TomW 3/17
-//
-//	}
+	public Shoes() { 
+
+	}
 
 	public ShoesType getType() {
 		return type;

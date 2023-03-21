@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +71,7 @@ class ClothingstoreApplicationTests {
 	}
 
 	@Test
+	@Transactional
 	@Order(3)
 	void addProductToUserCart() {
 		//Create a customer

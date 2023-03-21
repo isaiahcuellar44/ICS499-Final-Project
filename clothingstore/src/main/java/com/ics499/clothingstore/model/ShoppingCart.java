@@ -22,9 +22,9 @@ public class ShoppingCart {
 	@GeneratedValue
 	private long shoppingCartId;
 	
-//	@OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
-//	private List<CartItem> cartItems;
-//	
+	@OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
+	private List<CartItem> cartItems;
+	
 	
 	
 	
@@ -35,13 +35,14 @@ public class ShoppingCart {
 	@JoinColumn (name = "UserID")
 	private User user;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	@JoinTable(
-			name = "CartItem",
-			joinColumns = @JoinColumn(name = "shoppingCartID"),
-			inverseJoinColumns = @JoinColumn(name = "ProductID")
-			)
-	private List<CartItem> cartItems;
+//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@JoinTable(
+//			name = "CartItem",
+//			joinColumns = @JoinColumn(name = "shoppingCartID"),
+//			//inverseJoinColumns = @JoinColumn(name = "ProductID")
+//			inverseJoinColumns = @JoinColumn(name = "CartItemID")
+//			)
+//	private List<CartItem> cartItems;
 	
 	
 	public ShoppingCart(List<CartItem> cartItems) {

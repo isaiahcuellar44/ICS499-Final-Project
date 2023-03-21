@@ -43,9 +43,9 @@ public abstract class Product {
 		this.fit = fit;
 	}
 
-//	public Product() {   // not needed, threw error -- TomW 
-//
-//	}
+	public Product() {   // not needed, threw error -- TomW 
+
+	}
 	
 	public long getProductId() { // added getter for ProductId -- TomW 3/17
 		return productId;
