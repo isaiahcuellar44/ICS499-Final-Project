@@ -1,11 +1,12 @@
 package com.ics499.clothingstore.model;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,10 +16,10 @@ public class Customer extends User {
 
 	@GeneratedValue
 	private long customerId;
-	
+
 	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
-	private Rewards rewards; 
+	private Rewards rewards;
 
 	private String firstName;
 	private String lastName;
@@ -28,7 +29,7 @@ public class Customer extends User {
 	private String phoneNumber;
 	private Date dateAccountCreated;
 	private String email;
-	private String password;
+	private String password;// needs to be encrypted.
 
 	public Customer(String firstName, String lastName, String address, String city, String state, String phoneNumber,
 			Date dateAccountCreated, String email) {
@@ -50,7 +51,7 @@ public class Customer extends User {
 	public long getId() {
 		return this.customerId;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -119,8 +120,22 @@ public class Customer extends User {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String newPassword) {
+		try {
+			MessageDigest m = MessageDigest.getInstance("MD5");
+			m.update(newPassword.getBytes());
+			byte[] bytes = m.digest();
+			StringBuilder s = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++) {
+				s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+
+			}
+			this.password = s.toString();
+
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 //	public Rewards getRewards() {   // took these out, customer rewards should be independent of customer object -- TomW
