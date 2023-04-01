@@ -1,11 +1,12 @@
 package com.ics499.clothingstore.model;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -13,9 +14,9 @@ public class Customer extends User {
 
 	@GeneratedValue
 	private long customerId;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-	private Rewards rewards; 
+	private Rewards rewards;
 
 	private String firstName;
 	private String lastName;
@@ -47,7 +48,7 @@ public class Customer extends User {
 	public long getId() {
 		return this.customerId;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -117,10 +118,23 @@ public class Customer extends User {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
-	}
+		try {
+			MessageDigest m = MessageDigest.getInstance("MD5");
 
-	
+			m.update(password.getBytes());
+			byte[] bytes = m.digest();
+
+			StringBuilder s = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++) {
+				s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			}
+
+			/* Complete hashed password in hexadecimal format */
+			this.password = s.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+	}
 
 //	public Rewards getRewards() {   // took these out, customer rewards should be independent of customer object -- TomW
 //		return rewards;

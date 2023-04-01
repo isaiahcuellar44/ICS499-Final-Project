@@ -1,5 +1,7 @@
 package com.ics499.clothingstore.serviceImp;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +20,28 @@ public class CustomerServiceImp implements CustomerService {
 	public boolean isValid(String username, String password) {
 
 		Customer foundCustomer = customerRepository.findByName(username);
+		String hashedPassword = null;
+		try {
+			MessageDigest m = MessageDigest.getInstance("MD5");
+
+			m.update(password.getBytes());
+			byte[] bytes = m.digest();
+
+			StringBuilder s = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++) {
+				s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			hashedPassword = s.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 
 		if (foundCustomer == null) {
 			System.out.println("Customer does not exist");
 			return false;
 		}
 
-		if (foundCustomer.getEmail().equals(username) && foundCustomer.getPassword().equals(password)) {
+		if (foundCustomer.getEmail().equals(username) && foundCustomer.getPassword().equals(hashedPassword)) {
 			return true;
 		} else {
 			return false;
