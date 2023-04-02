@@ -9,28 +9,28 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class OrderItem {
-	
+
 	@Id
 	@GeneratedValue
 	private long orderItemId;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "OrderID")
 	private Order order;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ProductID")
 	private Product product;
 
 	private int quantity;
-	
+
 	public OrderItem(Order order, Product product, int quantity) {
 		super();
 		this.order = order;
 		this.product = product;
 		this.setQuantity(quantity);
 	}
-	
+
 	public long getOrderItemId() {
 		return orderItemId;
 	}
@@ -50,5 +50,9 @@ public class OrderItem {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
+
+	public Product getProduct() {
+		return this.product;
+	}
+
 }
