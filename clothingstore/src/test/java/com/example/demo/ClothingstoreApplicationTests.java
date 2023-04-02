@@ -26,6 +26,8 @@ import com.ics499.clothingstore.repository.CustomerRepository;
 import com.ics499.clothingstore.repository.ProductRepository;
 import com.ics499.clothingstore.repository.ShoppingCartRepository;
 import com.ics499.clothingstore.repository.UserRepository;
+import com.ics499.clothingstore.repository.OrderRepository;
+import com.ics499.clothingstore.repository.OrderItemRepository;
 
 @SpringBootTest(classes = ClothingstoreApplication.class)
 class ClothingstoreApplicationTests {
@@ -44,6 +46,12 @@ class ClothingstoreApplicationTests {
 	
 	@Autowired
 	private ShoppingCartRepository shoppingCartRepository;
+	
+	@Autowired
+	private OrderRepository orderRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@Test
 	@Order(1)
