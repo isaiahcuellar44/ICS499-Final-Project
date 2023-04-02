@@ -19,7 +19,7 @@ public class CustomerServiceImp implements CustomerService {
 	@Override
 	public boolean isValid(String username, String password) {
 
-		Customer foundCustomer = customerRepository.findByName(username);
+		Customer foundCustomer = customerRepository.findByEmail(username);
 		String hashedPassword = null;
 		try {
 			MessageDigest m = MessageDigest.getInstance("MD5");
