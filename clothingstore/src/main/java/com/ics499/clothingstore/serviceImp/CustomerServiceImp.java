@@ -48,13 +48,31 @@ public class CustomerServiceImp implements CustomerService {
 		}
 	}
 
-	public String createCustoemr(String firstName, String lastName, String address, String city, String state,
+	public String createCustomer(String firstName, String lastName, String address, String city, String state,
 			String phoneNumber, String email) {
 		Date d1 = new Date();
-//		Customer newCustomer = new Customer(firstName, lastName, address, city, state, phoneNumber, d1, email);
 		Customer newCustomer = new Customer();
+		newCustomer.setDateAccountCreated(d1);
 		customerRepository.save(newCustomer);
 		return "Customer Created";
+	}
+
+	@Override
+	public boolean createCustomer(String username, String password, String firstname, String lastname, String email) {
+		try {
+			Date d1 = new Date();
+			Customer newCustomer = new Customer();
+			newCustomer.setUsername(username);
+			newCustomer.setPassword(password);
+			newCustomer.setFirstName(firstname);
+			newCustomer.setLastName(lastname);
+			newCustomer.setEmail(email);
+			newCustomer.setDateAccountCreated(d1);
+			customerRepository.save(newCustomer);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }
