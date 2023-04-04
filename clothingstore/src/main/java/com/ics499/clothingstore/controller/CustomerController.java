@@ -86,6 +86,7 @@ public class CustomerController {
 		String email = jsonNode.get("email").asText();
 		
 		System.out.println("firstName: " + firstName);
+		System.out.println("password: " + password);
 		if(customerService.createCustomer(username, password, firstName, lastName, email)) {
 			return true;
 		} else {

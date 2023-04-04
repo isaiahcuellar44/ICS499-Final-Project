@@ -41,7 +41,7 @@ public class CustomerServiceImp implements CustomerService {
 			return false;
 		}
 
-		if (foundCustomer.getEmail().equals(username) && foundCustomer.getPassword().equals(hashedPassword)) {
+		if (foundCustomer.getUsername().equals(username) && foundCustomer.getPassword().equals(hashedPassword)) {
 			return true;
 		} else {
 			return false;
