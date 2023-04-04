@@ -18,6 +18,7 @@ public class Customer extends User {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Rewards rewards;
 
+	private String username;
 	private String firstName;
 	private String lastName;
 	private String address;
@@ -47,6 +48,14 @@ public class Customer extends User {
 
 	public long getId() {
 		return this.customerId;
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getAddress() {
