@@ -3,6 +3,7 @@ package com.ics499.clothingstore.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,8 @@ import com.ics499.clothingstore.model.Shirt;
 import com.ics499.clothingstore.repository.ShirtRepository;
 
 @RestController
-@RequestMapping("shirt")
+@RequestMapping("/shirt")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ShirtController {
 	
 	@Autowired
@@ -32,5 +34,10 @@ public class ShirtController {
 	@PostMapping("/saveMany")
 	public List<Shirt> saveManyShirts(@RequestBody List<Shirt> shirts) {
 		return shirtRepository.saveAll(shirts);
+	}
+	
+	@GetMapping("/getAll")
+	public List<Shirt> getAll() {
+		return shirtRepository.findAll();
 	}
 }
