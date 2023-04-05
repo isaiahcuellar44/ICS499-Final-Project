@@ -50,13 +50,10 @@ public class CustomerController {
 	}
 
 	@PostMapping("/login")
-	public boolean login(@RequestBody String jsonDataDto) throws JsonMappingException, JsonProcessingException {
+	public boolean login(@RequestBody Map<String, String> customerInformation) {
 		// Validate the user's credentials
-		ObjectMapper objectMapper = new ObjectMapper();
-		JsonNode jsonNode = objectMapper.readTree(jsonDataDto);
-		
-		String username = jsonNode.get("username").asText();
-		String password = jsonNode.get("password").asText();
+		String username = customerInformation.get("username");
+		String password = customerInformation.get("password");
 		
 		System.out.println("username: " + username);
 		System.out.println("password: " + password);
@@ -73,17 +70,13 @@ public class CustomerController {
 	}
 
 	@PostMapping("/createCustomer")
-	public boolean createCustomer(@RequestBody String jsonDataDto) throws JsonMappingException, JsonProcessingException {
+	public boolean createCustomer(@RequestBody Map<String, String> customerInformation) {
 		//username, password, firstname, lastname, email
-		
-		ObjectMapper objectMapper = new ObjectMapper();
-		JsonNode jsonNode = objectMapper.readTree(jsonDataDto);
-		
-		String username = jsonNode.get("username").asText();
-		String password = jsonNode.get("password").asText();
-		String firstName = jsonNode.get("firstName").asText();
-		String lastName = jsonNode.get("lastName").asText();
-		String email = jsonNode.get("email").asText();
+		String username = customerInformation.get("username");
+		String password = customerInformation.get("password");
+		String firstName = customerInformation.get("firstName");
+		String lastName = customerInformation.get("lastName");
+		String email = customerInformation.get("email");
 		
 		System.out.println("firstName: " + firstName);
 		System.out.println("password: " + password);
