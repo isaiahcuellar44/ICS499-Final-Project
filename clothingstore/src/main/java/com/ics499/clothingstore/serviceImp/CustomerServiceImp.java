@@ -60,6 +60,10 @@ public class CustomerServiceImp implements CustomerService {
 	@Override
 	public boolean createCustomer(String username, String password, String firstname, String lastname, String email) {
 		try {
+			if (customerRepository.findByUsername(username) != null) {
+				return false;
+			}
+			
 			Date d1 = new Date();
 			Customer newCustomer = new Customer();
 			newCustomer.setUsername(username);
