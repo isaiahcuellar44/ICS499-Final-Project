@@ -51,20 +51,9 @@ public class CustomerController {
 
 	@PostMapping("/login")
 	public boolean login(@RequestBody Map<String, String> customerInformation) {
-		// Validate the user's credentials
-		String username = customerInformation.get("username");
-		String password = customerInformation.get("password");
-		
-		System.out.println("username: " + username);
-		System.out.println("password: " + password);
-		
-		if (customerService.isValid(username, password)) {
-			// Set up the session
-			// session.setAttribute("loggedInCustomer", customer.getEmail());
-			System.out.println("CUSTOMER IS VALID");
+		if (customerService.isValid(customerInformation.get("username"), customerInformation.get("password"))) {
 			return true;
 		} else {
-			System.out.println("CUSTOMER IS NOT VALID");
 			return false;
 		}
 	}
@@ -72,15 +61,11 @@ public class CustomerController {
 	@PostMapping("/createCustomer")
 	public boolean createCustomer(@RequestBody Map<String, String> customerInformation) {
 		//username, password, firstname, lastname, email
-		String username = customerInformation.get("username");
-		String password = customerInformation.get("password");
-		String firstName = customerInformation.get("firstName");
-		String lastName = customerInformation.get("lastName");
-		String email = customerInformation.get("email");
-		
-		System.out.println("firstName: " + firstName);
-		System.out.println("password: " + password);
-		if(customerService.createCustomer(username, password, firstName, lastName, email)) {
+		if(customerService.createCustomer(customerInformation.get("username"), 
+				customerInformation.get("password"), 
+				customerInformation.get("firstName"), 
+				customerInformation.get("lastName"), 
+				customerInformation.get("email"))) {
 			return true;
 		} else {
 			return false;
