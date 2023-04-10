@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ics499.clothingstore.model.Hat;
+import com.ics499.clothingstore.model.Shirt;
 import com.ics499.clothingstore.repository.HatRepository;
 
 @RestController
@@ -62,5 +63,10 @@ public class HatController {
 	@GetMapping("/getAll")
 	public List<Hat> getAll() {
 		return hatRepository.findAll();
+	}
+	
+	@GetMapping("/getById/{id}")
+	public Hat getById(@PathVariable("id") Long id) {
+		return hatRepository.findByProductId(id);
 	}
 }
