@@ -18,6 +18,7 @@ public class Order {
 	@GeneratedValue
 	private long orderId;
 	private static final double shippingCost = 4.99;
+	private boolean qualifyForReward = false; // free item if more than 100 is spent.
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems;
@@ -73,7 +74,9 @@ public class Order {
 		for (OrderItem orderItem : orderItems) {
 			total += orderItem.getProduct().getPrice();
 		}
-
+		if (total > 100) {
+			qualifyForReward = true;
+		}
 		return total + shippingCost;
 
 	}
