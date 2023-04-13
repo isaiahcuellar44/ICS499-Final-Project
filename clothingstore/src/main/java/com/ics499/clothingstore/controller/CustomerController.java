@@ -5,8 +5,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ics499.clothingstore.model.Customer;
+import com.ics499.clothingstore.model.Pants;
 import com.ics499.clothingstore.repository.CustomerRepository;
 import com.ics499.clothingstore.service.CustomerService;
 import com.ics499.clothingstore.serviceImp.CustomerServiceImp;
@@ -50,12 +53,63 @@ public class CustomerController {
 	}
 
 	@PostMapping("/login")
-	public boolean login(@RequestBody Map<String, String> customerInformation) {
+	public Customer login(@RequestBody Map<String, String> customerInformation) {
 		if (customerService.isValid(customerInformation.get("username"), customerInformation.get("password"))) {
+			System.out.println("found customer");
+			return customerRepository.findByUsername(customerInformation.get("username"));
+		} else {
+			return null;
+		}
+	}
+	
+	@PostMapping("/changeAccountInfo")
+	@Transactional
+	public boolean changeAccountInfo(@RequestBody Map<String, String> customerInformation) {
+
+		//get id of customer
+		Customer cust = customerRepository.findByUsername(customerInformation.get("oldUsername"));
+		if (cust != null) {
+			
+			System.out.println("allowing credential change");
+			
+			Long custId = cust.getUserId();
+			
+			System.out.println(custId);
+			System.out.println(customerInformation.get("username"));
+			System.out.println(customerInformation.get("password"));
+			System.out.println(customerInformation.get("firstName"));
+			System.out.println(customerInformation.get("lastName"));
+			System.out.println(customerInformation.get("email"));
+
+			//update customer repo with new info
+			customerRepository.updateCustomer(custId, 
+					customerInformation.get("username"), 
+					customerInformation.get("password"), 
+					customerInformation.get("firstName"), 
+					customerInformation.get("lastName"), 
+					customerInformation.get("email"));
+			
+			Customer newCust = customerRepository.findByUserId(custId);
+			
+			System.out.println(custId);
+			System.out.println(newCust.getUsername());
+			System.out.println(newCust.getPassword());
+			System.out.println(newCust.getFirstName());
+			System.out.println(newCust.getLastName());
+			System.out.println(customerInformation.get("email"));
+			
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	@PostMapping("/getCustomer")
+	public Customer getCustomerByUsername(@RequestBody Map<String, String> customerInformation) {
+		System.out.println("username is " + customerInformation.get("username"));
+		Customer cust = customerRepository.findByUsername(customerInformation.get("username"));
+		System.out.println(cust.getUsername());
+	    return cust;
 	}
 
 	@PostMapping("/createCustomer")
@@ -90,6 +144,17 @@ public class CustomerController {
 	@GetMapping("{id}")
 	public Customer get(@PathVariable Long id) {
 		return customerRepository.getReferenceById(id);
+	}
+	
+	@GetMapping("/userAccount/{username}")
+	public Customer getByUsername(@PathVariable("username") String username) {
+		Customer cust = customerRepository.findByUsername(username);
+		
+		System.out.println(cust.getUsername());
+		System.out.println(cust.getPassword());
+		System.out.println(cust.getEmail());
+		
+		return cust; 
 	}
 
 	@PostMapping("/add")
