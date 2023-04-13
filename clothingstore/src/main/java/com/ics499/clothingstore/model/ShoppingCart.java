@@ -24,6 +24,7 @@ public class ShoppingCart {
 	private List<CartItem> cartItems;
 	private static final double shippingCost = 4.99;
 	private boolean qualifyForReward = false;
+	private Shirt rewardShirt = new Shirt();
 
 	// I want to come back to this one... Not sure how to handle this... Just
 	// UserID?
@@ -106,6 +107,14 @@ public class ShoppingCart {
 		}
 		return total + shippingCost;
 
+	}
+
+	public Order createOrder() {
+		if (qualifyForReward == true) {
+			cartItems.add(new CartItem(this, rewardShirt, 1));
+		}
+
+		return new Order();
 	}
 
 	// @Override

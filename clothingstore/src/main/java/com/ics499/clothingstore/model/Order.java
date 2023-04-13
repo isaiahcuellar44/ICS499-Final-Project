@@ -17,31 +17,32 @@ public class Order {
 	@Id
 	@GeneratedValue
 	private long orderId;
-	private static final double shippingCost = 4.99;
-	private boolean qualifyForReward = false; // free item if more than 100 is spent.
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-	private List<OrderItem> orderItems;
+	private List<Product> orderItems;
+	private static final double shippingCost = 4.99;
+	private boolean qualifyForReward = false;
 
 	@OneToOne
 	@JoinColumn(name = "UserID")
 	private User user;
 
-	public Order(List<OrderItem> orderItems) {
+	public Order(List<Product> cartItems) {
 		super();
-		this.orderItems = orderItems;
+		this.orderItems = cartItems;
+
 	}
 
 	public Order() {
 		super();
-		this.orderItems = new ArrayList<OrderItem>();
+		this.orderItems = new ArrayList<Product>();
 	}
 
 	public long timeToLive() {
 		return 0;
 	}
 
-	public List<OrderItem> getOrderItems() {
+	public List<Product> getOrderItems() {
 		return orderItems;
 	}
 
@@ -53,7 +54,7 @@ public class Order {
 		this.orderId = orderId;
 	}
 
-	public void setOrderItems(List<OrderItem> orderItems) {
+	public void setOrderItems(List<Product> orderItems) {
 		this.orderItems = orderItems;
 	}
 
@@ -71,8 +72,8 @@ public class Order {
 
 	public double orderTotal() {
 		double total = 0;
-		for (OrderItem orderItem : orderItems) {
-			total += orderItem.getProduct().getPrice();
+		for (Product orderItem : orderItems) {
+			total += orderItem.getPrice();
 		}
 		if (total > 100) {
 			qualifyForReward = true;

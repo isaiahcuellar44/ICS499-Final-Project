@@ -48,6 +48,28 @@ public class CustomerServiceImp implements CustomerService {
 		}
 	}
 
+	public String hashPassword(String password) {
+
+		String hashedPassword = null;
+		try {
+			MessageDigest m = MessageDigest.getInstance("MD5");
+
+			m.update(password.getBytes());
+			byte[] bytes = m.digest();
+
+			StringBuilder s = new StringBuilder();
+			for (int i = 0; i < bytes.length; i++) {
+				s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			hashedPassword = s.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+		return hashedPassword;
+
+	}
+
 	public String createCustoemr(String firstName, String lastName, String address, String city, String state,
 			String phoneNumber, String email) {
 		Date d1 = new Date();

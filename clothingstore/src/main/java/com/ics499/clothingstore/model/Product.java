@@ -1,20 +1,15 @@
 package com.ics499.clothingstore.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Product {
-	
+
 	@Id
 	@GeneratedValue
 	private long productId;
@@ -26,11 +21,6 @@ public abstract class Product {
 	private String color;
 	private String size;
 	private String fit;
-	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-	private List<CartItem> cartItems;
-	
-
 
 	public Product(float price, int stock, String description, String brand, String color, String size, String fit) {
 		super();
@@ -43,10 +33,10 @@ public abstract class Product {
 		this.fit = fit;
 	}
 
-	public Product() {   // not needed, threw error -- TomW 
+	public Product() { // not needed, threw error -- TomW
 
 	}
-	
+
 	public long getProductId() { // added getter for ProductId -- TomW 3/17
 		return productId;
 	}
