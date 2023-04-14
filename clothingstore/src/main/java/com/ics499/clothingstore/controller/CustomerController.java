@@ -69,18 +69,8 @@ public class CustomerController {
 		//get id of customer
 		Customer cust = customerRepository.findByUsername(customerInformation.get("oldUsername"));
 		if (cust != null) {
-			
 			System.out.println("allowing credential change");
-			
 			Long custId = cust.getUserId();
-			
-			System.out.println(custId);
-			System.out.println(customerInformation.get("username"));
-			System.out.println(customerInformation.get("password"));
-			System.out.println(customerInformation.get("firstName"));
-			System.out.println(customerInformation.get("lastName"));
-			System.out.println(customerInformation.get("email"));
-
 			//update customer repo with new info
 			customerRepository.updateCustomer(custId, 
 					customerInformation.get("username"), 
@@ -88,16 +78,6 @@ public class CustomerController {
 					customerInformation.get("firstName"), 
 					customerInformation.get("lastName"), 
 					customerInformation.get("email"));
-			
-			Customer newCust = customerRepository.findByUserId(custId);
-			
-			System.out.println(custId);
-			System.out.println(newCust.getUsername());
-			System.out.println(newCust.getPassword());
-			System.out.println(newCust.getFirstName());
-			System.out.println(newCust.getLastName());
-			System.out.println(customerInformation.get("email"));
-			
 			return true;
 		} else {
 			return false;
