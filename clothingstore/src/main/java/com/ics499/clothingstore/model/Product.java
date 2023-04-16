@@ -114,11 +114,11 @@ public abstract class Product {
 	}
 
 	public String getImageSource() {
-		return imageSource;
+		return image_source;
 	}
 
 	public void setImageSource(String imageSource) {
-		this.imageSource = imageSource;
+		this.image_source = imageSource;
 	}
 
 }

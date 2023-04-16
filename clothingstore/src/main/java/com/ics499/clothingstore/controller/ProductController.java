@@ -17,7 +17,7 @@ import com.ics499.clothingstore.model.Product;
 import com.ics499.clothingstore.repository.ProductRepository;
 
 @RestController
-@RequestMapping("product")
+@RequestMapping("/product")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
 	@Autowired
