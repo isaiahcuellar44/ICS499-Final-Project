@@ -8,13 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Product {
-	
+
 	@Id
 	@GeneratedValue
 	private long productId;
@@ -26,13 +25,13 @@ public abstract class Product {
 	private String color;
 	private String size;
 	private String fit;
-	
+	private String imageSource;
+
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 	private List<CartItem> cartItems;
-	
 
-
-	public Product(float price, int stock, String description, String brand, String color, String size, String fit) {
+	public Product(float price, int stock, String description, String brand, String color, String size, String fit,
+			String imageSource) {
 		super();
 		this.price = price;
 		this.stock = stock;
@@ -41,12 +40,13 @@ public abstract class Product {
 		this.color = color;
 		this.size = size;
 		this.fit = fit;
+		this.imageSource = imageSource;
 	}
 
-	public Product() {   // not needed, threw error -- TomW 
+	public Product() { // not needed, threw error -- TomW
 
 	}
-	
+
 	public long getProductId() { // added getter for ProductId -- TomW 3/17
 		return productId;
 	}
@@ -111,6 +111,14 @@ public abstract class Product {
 	public String toString() {
 		return "Product [price=" + price + ", stock=" + stock + ", Description=" + Description + ", brand=" + brand
 				+ ", color=" + color + ", size=" + size + ", fit=" + fit + "]";
+	}
+
+	public String getImageSource() {
+		return imageSource;
+	}
+
+	public void setImageSource(String imageSource) {
+		this.imageSource = imageSource;
 	}
 
 }
