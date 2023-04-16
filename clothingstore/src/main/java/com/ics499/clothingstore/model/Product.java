@@ -25,7 +25,7 @@ public abstract class Product {
 	private String color;
 	private String size;
 	private String fit;
-	private String imageSource;
+	private String image_source;
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 	private List<CartItem> cartItems;
@@ -40,7 +40,7 @@ public abstract class Product {
 		this.color = color;
 		this.size = size;
 		this.fit = fit;
-		this.imageSource = imageSource;
+		this.image_source = imageSource;
 	}
 
 	public Product() { // not needed, threw error -- TomW
