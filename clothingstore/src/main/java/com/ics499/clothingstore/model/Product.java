@@ -1,10 +1,14 @@
 package com.ics499.clothingstore.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -23,8 +27,8 @@ public abstract class Product {
 	private String fit;
 	private String image_source;
 
-//	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-//	private List<CartItem> cartItems;
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	private List<CartItem> cartItems;
 
 	public Product(float price, int stock, String description, String brand, String color, String size, String fit,
 			String imageSource) {
