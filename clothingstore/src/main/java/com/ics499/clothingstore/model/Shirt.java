@@ -15,13 +15,13 @@ public class Shirt extends Product {
 	private ShirtType type;
 
 	public Shirt(float price, int stock, String description, String brand, String color, String size, String fit,
-			ShirtType type) {
-		super(price, stock, description, brand, color, size, fit);
+			ShirtType type, String imageSource) {
+		super(price, stock, description, brand, color, size, fit, imageSource);
 		this.type = type;
 	}
 
-	public Shirt() { 
-		super();
+	public Shirt() {
+
 	}
 
 	public ShirtType getType() {

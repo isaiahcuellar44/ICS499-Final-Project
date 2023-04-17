@@ -78,4 +78,18 @@ public class Order {
 
 	}
 
+	public void addToOrder(OrderItem orderItem) {
+		this.orderItems.add(orderItem);
+
+	}
+
+	public void emptyOrder() {
+		this.orderItems.clear();
+	}
+
+	public void removeItem(OrderItem orderItem) {
+		this.orderItems.remove(orderItem);
+
+	}
+
 }

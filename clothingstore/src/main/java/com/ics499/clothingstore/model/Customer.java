@@ -4,19 +4,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Customer extends User {
 
 	@GeneratedValue
 	private long customerId;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	private Rewards rewards;
 
 	private String username;
 	private String firstName;
@@ -49,7 +44,7 @@ public class Customer extends User {
 	public long getId() {
 		return this.customerId;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}

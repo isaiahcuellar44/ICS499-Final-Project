@@ -42,28 +42,28 @@ public class ProductServiceImp {
 	}
 
 	public void addHat(float price, int stock, String description, String brand, String color, String size, String fit,
-			HatType type) {
-		Hat hatToAdd = new Hat(price, stock, description, brand, color, size, fit, type);
+			HatType type, String path) {
+		Hat hatToAdd = new Hat(price, stock, description, brand, color, size, fit, type, path);
 		productRepository.save(hatToAdd);
 //		productRepository.addHat(price, description, brand, color, size, fit, type);
 	}
 
 	public void addPants(float price, int stock, String description, String brand, String color, String size,
-			String fit, PantsType type, boolean pockets, boolean zipper, boolean beltloops) {
+			String fit, PantsType type, boolean pockets, boolean zipper, boolean beltloops, String path) {
 		Pants pantsToAdd = new Pants(price, stock, description, brand, color, size, fit, type, pockets, zipper,
-				beltloops);
+				beltloops, path);
 		productRepository.save(pantsToAdd);
 	}
 
 	public void addShirt(float price, int stock, String description, String brand, String color, String size,
-			String fit, ShirtType type) {
-		Shirt shirtToAdd = new Shirt(price, stock, description, brand, color, size, fit, type);
+			String fit, ShirtType type, String path) {
+		Shirt shirtToAdd = new Shirt(price, stock, description, brand, color, size, fit, type, path);
 		productRepository.save(shirtToAdd);
 	}
 
 	public void addShoes(float price, int stock, String description, String brand, String color, String size,
-			String fit, ShoesType type) {
-		Shoes shoesToAdd = new Shoes(price, stock, description, brand, color, size, fit, type);
+			String fit, ShoesType type, String path) {
+		Shoes shoesToAdd = new Shoes(price, stock, description, brand, color, size, fit, type, path);
 		productRepository.save(shoesToAdd);
 	}
 }

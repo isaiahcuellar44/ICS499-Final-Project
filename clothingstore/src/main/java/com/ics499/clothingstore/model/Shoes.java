@@ -12,12 +12,12 @@ public class Shoes extends Product {
 	private ShoesType type;
 
 	public Shoes(float price, int stock, String description, String brand, String color, String size, String fit,
-			ShoesType type) {
-		super(price, stock, description, brand, color, size, fit);
+			ShoesType type, String imageSource) {
+		super(price, stock, description, brand, color, size, fit, imageSource);
 		this.type = type;
 	}
 
-	public Shoes() { 
+	public Shoes() {
 
 	}
 
