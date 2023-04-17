@@ -15,15 +15,15 @@ public class Pants extends Product {
 	private boolean beltloops;
 
 	public Pants(float price, int stock, String description, String brand, String color, String size, String fit,
-			PantsType type, boolean pockets, boolean zipper, boolean beltloops) {
-		super(price, stock, description, brand, color, size, fit);
+			PantsType type, boolean pockets, boolean zipper, boolean beltloops, String image_source) {
+		super(price, stock, description, brand, color, size, fit, image_source);
 		this.type = type;
 		this.pockets = pockets;
 		this.zipper = zipper;
 		this.beltloops = beltloops;
 	}
 
-	public Pants() {  
+	public Pants() {
 
 	}
 

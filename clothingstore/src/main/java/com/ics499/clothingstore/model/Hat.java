@@ -12,12 +12,12 @@ public class Hat extends Product {
 	private HatType type;
 
 	public Hat(float price, int stock, String description, String brand, String color, String size, String fit,
-			HatType type) {
-		super(price, stock, description, brand, color, size, fit);
+			HatType type, String image_source) {
+		super(price, stock, description, brand, color, size, fit, image_source);
 		this.type = type;
 	}
 
-	public Hat() {  
+	public Hat() {
 
 	}
 
