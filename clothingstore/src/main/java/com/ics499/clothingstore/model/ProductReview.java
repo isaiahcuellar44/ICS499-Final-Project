@@ -16,11 +16,10 @@ public class ProductReview {
 	private long reviewId;
 	private int rating;
 	private long userAccountID;
-	//private long productId;
 	private String review;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "ProductID")
+	@JoinColumn(name = "product_id")
 	Product product;
 
 	public ProductReview(Product product, int rating, long userAccountID, String review) {
@@ -35,6 +34,14 @@ public class ProductReview {
 
 	}
 	
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
 	public long getProductId() {
 		return this.product.getProductId(); // -- TomW 
 	}

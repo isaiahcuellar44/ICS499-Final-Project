@@ -10,6 +10,10 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Product {
@@ -30,6 +34,10 @@ public abstract class Product {
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 	private List<CartItem> cartItems;
 
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<ProductReview> productReviews;
+  
 	public Product(float price, int stock, String description, String brand, String color, String size, String fit,
 			String imageSource) {
 		super();
@@ -43,11 +51,23 @@ public abstract class Product {
 		this.image_source = imageSource;
 	}
 
-	public Product() { // not needed, threw error -- TomW
+	public Product() {
 
 	}
 
-	public long getProductId() { // added getter for ProductId -- TomW 3/17
+	public List<ProductReview> getProductReviews() {
+		return productReviews;
+	}
+
+	public void addProductReview(ProductReview productReview) {
+		this.productReviews.add(productReview);
+	}
+
+	public void setProductId(long productId) {
+	    this.productId = productId;
+	}
+
+	public long getProductId() {
 		return productId;
 	}
 

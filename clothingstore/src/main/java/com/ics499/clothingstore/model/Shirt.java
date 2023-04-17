@@ -2,6 +2,9 @@ package com.ics499.clothingstore.model;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class Shirt extends Product {
 
