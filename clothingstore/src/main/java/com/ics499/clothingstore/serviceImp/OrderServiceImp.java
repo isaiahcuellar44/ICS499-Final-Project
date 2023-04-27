@@ -1,5 +1,9 @@
 package com.ics499.clothingstore.serviceImp;
 
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.ics499.clothingstore.model.Order;
 import com.ics499.clothingstore.model.OrderItem;
 import com.ics499.clothingstore.repository.OrderRepository;
@@ -23,8 +27,13 @@ public class OrderServiceImp {
 
 	}
 
-	public void saveCart(Order order) {
+	public void saveOrder(Order order) {
 		orderRepository.saveAndFlush(order);
+
+	}
+
+	public void createOrder(@RequestBody Map<String, String> orderInformation) {
+		String orderitems = orderInformation.get("orderItems");
 
 	}
 }
