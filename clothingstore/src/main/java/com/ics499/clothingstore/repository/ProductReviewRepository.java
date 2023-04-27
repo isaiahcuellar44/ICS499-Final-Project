@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.ics499.clothingstore.model.ProductReview;
 import com.ics499.clothingstore.model.Shirt;
+import com.ics499.clothingstore.model.User;
 
 
 public interface ProductReviewRepository extends JpaRepository<ProductReview, Long>{
