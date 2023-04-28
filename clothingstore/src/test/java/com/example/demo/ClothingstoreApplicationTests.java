@@ -158,12 +158,8 @@ class ClothingstoreApplicationTests {
 
 	@Test
 	void saveOrderFromFrontendWithAccount() {
-		// lets say we get an order for the customer "a firstname" from the front end
-		// for demonstration we are just pulling it from the repo
 		Customer customer = customerRepository.findByName("Dylan");
-
 		List<Product> products = productRepository.findAll();
-
 		Order order = new Order();
 
 		// add the first 10 products, and 2 of each product
@@ -173,10 +169,8 @@ class ClothingstoreApplicationTests {
 		}
 
 		order.setOrderItems(items);
-		
 		order.setTransaction(new Transaction("Visa", "card num goes here", 323, new Date(),
 				120.20, new Date(), false));
-
 		customer.addOrder(order);
 
 		customerRepository.save(customer);
