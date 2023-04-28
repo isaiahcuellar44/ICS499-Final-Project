@@ -117,7 +117,6 @@ class ClothingstoreApplicationTests {
 		// assert that ONLY the shirt is in the shirt repository
 		assertFalse(shirts.contains(new Shoes((float) 30.00, 3, "winter boots", "polarboots", "black", "12", "medium",
 				ShoesType.boots, "image file path for front end")));
-
 	}
 
 	@Test
@@ -125,13 +124,9 @@ class ClothingstoreApplicationTests {
 		// In this instance, we would get a JSON of the order total, and list of
 		// products, and their quantities.
 		// In practice we would have to parse the JSON
-		List<OrderItem> items = new ArrayList<>();
-
-		List<Product> products = productRepository.findAll();
-
 		Order order = new Order();
-
-		// add the first 10 products, and 3 of each product
+		List<Product> products = productRepository.findAll();
+		List<OrderItem> items = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			items.add(new OrderItem(order, products.get(i), 3));
 		}
@@ -145,10 +140,8 @@ class ClothingstoreApplicationTests {
 
 		orderRepository.save(order);
 
-		/**
-		 * We only have 1 order in the database so this works, but in practice if we wanted
-		 * a customer's order we would want to search for it in the repo
-		 */
+		//We only have 1 order in the database so this works, but in practice if we wanted
+		//a customer's order we would want to search for it in the repo
 		List<Order> orderList = orderRepository.findAll();
 
 		assertThat(orderList).isNotNull();
@@ -160,9 +153,7 @@ class ClothingstoreApplicationTests {
 		assertThat(fromRepoItems.size()).isEqualTo(10);
 		assertThat(fromRepoItems.get(3).getQuantity()).isEqualTo(3);
 		
-		Transaction orderTransaction = orderList.get(0).getTransaction();
-		
-		assertThat(orderTransaction.getCreditCardNumber()).isEqualTo("card num goes here");
+		assertThat(orderList.get(0).getTransaction().getCreditCardNumber()).isEqualTo("card num goes here");
 	}
 
 	@Test
