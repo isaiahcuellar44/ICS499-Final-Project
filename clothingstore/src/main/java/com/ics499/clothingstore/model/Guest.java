@@ -9,7 +9,7 @@ public class Guest extends User {
 	//private long sessionId;
 
 	public Guest() {
-		super(new ShoppingCart());
+		super();
 	}
 
 	@Override

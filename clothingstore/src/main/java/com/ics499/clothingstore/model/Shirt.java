@@ -1,5 +1,7 @@
 package com.ics499.clothingstore.model;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -32,4 +34,19 @@ public class Shirt extends Product {
 		this.type = type;
 	}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Shirt)) return false;
+        Shirt shirt = (Shirt) o;
+        return Float.compare(shirt.price, price) == 0 &&
+                stock == shirt.stock &&
+                Objects.equals(description, shirt.description) &&
+                Objects.equals(brand, shirt.brand) &&
+                Objects.equals(color, shirt.color) &&
+                Objects.equals(size, shirt.size) &&
+                Objects.equals(fit, shirt.fit) &&
+                type == shirt.type &&
+                Objects.equals(image_source, shirt.image_source);
+    }
 }

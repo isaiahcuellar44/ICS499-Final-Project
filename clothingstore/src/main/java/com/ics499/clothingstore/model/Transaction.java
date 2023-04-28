@@ -28,10 +28,6 @@ public class Transaction implements Payment {
 	private boolean isReturn;// should returns be it's own subclass?
 	private long userAccountId;
 	
-	@OneToOne
-	@JoinColumn(name = "shoppingCartID")                           // TomW 
-	ShoppingCart shoppingCart;
-	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TomW 
 	@JoinTable(
 			name = "CustomerTransactions",
@@ -40,13 +36,12 @@ public class Transaction implements Payment {
 	private User user;	
 
 	public Transaction(String paymentMethod, String creditCardNumber, int creditCardCV, Date creditCardExpirationDate,
-			ShoppingCart shoppingCart, double total, Date transactionDate, boolean isReturn, long userAccountId) {
+			double total, Date transactionDate, boolean isReturn, long userAccountId) {
 		super();
 		PaymentMethod = paymentMethod;
 		this.creditCardNumber = creditCardNumber;
 		this.creditCardCV = creditCardCV;
 		this.creditCardExpirationDate = creditCardExpirationDate;
-		this.shoppingCart = shoppingCart;
 		this.total = total;
 		this.transactionDate = transactionDate;
 		this.isReturn = isReturn;
@@ -95,14 +90,6 @@ public class Transaction implements Payment {
 	public void setCreditCardExpirationDate(Date creditCardExpirationDate) {
 		this.creditCardExpirationDate = creditCardExpirationDate;
 	}
-	
-	public ShoppingCart getCart() {
-		return shoppingCart;
-	}
-
-	public void setCart(ShoppingCart shoppingCart) {
-		this.shoppingCart = shoppingCart;
-	}
 	 
 	public double getTotal() {
 		return total;
@@ -145,19 +132,11 @@ public class Transaction implements Payment {
 				+ isReturn + ", userAccountId=" + userAccountId + "]";
 	}
 	*/
+	
 	@Override
 	public String doSomeEncrypting() {
 		return null;
 	}
-
-	public long getShoppingCartId() {
-		//return shoppingCartId;
-		return shoppingCart.getId();
-	}
-
-//	public void setShoppingCartId(long shoppingCartId) {
-//		this.shoppingCartId = shoppingCartId;
-//	}
 
 	public User getUser() {
 		return user;
