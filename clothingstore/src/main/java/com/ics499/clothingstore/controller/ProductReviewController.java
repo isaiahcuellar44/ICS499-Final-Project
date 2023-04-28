@@ -78,7 +78,8 @@ public class ProductReviewController {
 			ProductReview newReview = new ProductReview(productToSave,
 					Integer.parseInt(productReview.get("rating")),
 					Long.parseLong(productReview.get("userId")),
-					productReview.get("review"));
+					productReview.get("review"),
+					productReview.get("username"));
 			
 			//add review to product
 			productToSave.addProductReview(newReview);
@@ -126,6 +127,11 @@ public class ProductReviewController {
 		System.out.println("getting reviews for product " + id);
 		
 		List<ProductReview> foundReviews = productReviewRepository.findByProductId(id);
+		
+		
+		for(var review: foundReviews) {
+			System.out.println(review.getUsername());
+		}
 		
 		System.out.println(foundReviews);
 		
