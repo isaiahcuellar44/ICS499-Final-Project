@@ -19,15 +19,27 @@ public abstract class User {
 	@Id
 	@GeneratedValue
 	private long userId;
-    
+	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Transaction> transactions;
-    
+	private List<Order> orders;
+	
 	public User() {
 		super();
 	}
 
 	public long getUserId() {
 		return userId;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+	
+	public void addOrder(Order order) {
+		this.orders.add(order);
 	}
 }

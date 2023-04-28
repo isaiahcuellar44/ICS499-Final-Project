@@ -18,53 +18,41 @@ public class Transaction implements Payment {
 	@Id
 	@GeneratedValue
 	private long transactionId;
-	private String PaymentMethod;// could this be a enum? like Visa, Mastercard, discover?
+	
+	private String paymentMethod;// could this be a enum? like Visa, Mastercard, discover?
 	private String creditCardNumber;
 	private int creditCardCV;
 	private Date creditCardExpirationDate;
-	//private long shoppingCartId;
 	private double total;
 	private Date transactionDate;
 	private boolean isReturn;// should returns be it's own subclass?
-	private long userAccountId;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TomW 
-	@JoinTable(
-			name = "CustomerTransactions",
-			joinColumns = @JoinColumn(name = "transactionID"),
-			inverseJoinColumns = @JoinColumn(name = "userID"))
-	private User user;	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TomW 
+	@JoinColumn(name = "orderId")
+	private Order order;	
 
 	public Transaction(String paymentMethod, String creditCardNumber, int creditCardCV, Date creditCardExpirationDate,
-			double total, Date transactionDate, boolean isReturn, long userAccountId) {
+			double total, Date transactionDate, boolean isReturn) {
 		super();
-		PaymentMethod = paymentMethod;
+		this.paymentMethod = paymentMethod;
 		this.creditCardNumber = creditCardNumber;
 		this.creditCardCV = creditCardCV;
 		this.creditCardExpirationDate = creditCardExpirationDate;
 		this.total = total;
 		this.transactionDate = transactionDate;
 		this.isReturn = isReturn;
-		this.userAccountId = userAccountId;
 	}
 
 	public Transaction() {
 
 	}
 
-//	/**
-//	 * does this generate and return a PDF as a receipt?
-//	 */
-//	public void printReceipt() {   // commented out, this should be in services -- TomW 3/17
-//
-//	}
-
 	public String getPaymentMethod() {
-		return PaymentMethod;
+		return paymentMethod;
 	}
 
 	public void setPaymentMethod(String paymentMethod) {
-		PaymentMethod = paymentMethod;
+		this.paymentMethod = paymentMethod;
 	}
 
 	public String getCreditCardNumber() {
@@ -115,14 +103,6 @@ public class Transaction implements Payment {
 		this.isReturn = isReturn;
 	}
 
-	public long getUserAccountId() {
-		return userAccountId;
-	}
-
-	public void setUserAccountId(long userAccountId) {
-		this.userAccountId = userAccountId;
-	}
-
 	/*
 	@Override
 	public String toString() {
@@ -136,13 +116,5 @@ public class Transaction implements Payment {
 	@Override
 	public String doSomeEncrypting() {
 		return null;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 }

@@ -22,9 +22,13 @@ public class Order {
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "UserID")
 	private User user;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "transactionId")
+	private Transaction transaction;
 
 	public Order(List<OrderItem> orderItems) {
 		super();
@@ -34,6 +38,14 @@ public class Order {
 	public Order() {
 		super();
 		this.orderItems = new ArrayList<OrderItem>();
+	}
+
+	public Transaction getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(Transaction transaction) {
+		this.transaction = transaction;
 	}
 
 	public long timeToLive() {
