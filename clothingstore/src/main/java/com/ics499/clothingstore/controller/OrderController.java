@@ -1,6 +1,9 @@
 package com.ics499.clothingstore.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,7 +24,29 @@ public class OrderController {
 
 	@Autowired
 	OrderRepository orderRepository;
-	
+
+//public long createOrder(@RequestBody Map<String, Object> orderInformation) {
+	@SuppressWarnings("unchecked")
+	@PostMapping("/createOrder")
+	public long createOrder(@RequestBody Map<String, Object> orderInformation) {
+		// createOrder - return order ID.
+		LinkedHashMap<String, Object> orderMap = (LinkedHashMap<String, Object>) orderInformation.get("orderItems");
+		
+		System.out.println(orderMap.get("products"));
+		System.out.println(orderMap.get("totalCost"));
+		
+		ArrayList<LinkedHashMap<String, String>> orderProducts = (ArrayList<LinkedHashMap<String, String>>) orderMap.get("products");
+		
+		System.out.println(orderProducts);
+		
+		for(LinkedHashMap<String, String> prod : orderProducts) {
+			String productId = String.valueOf(prod.get("productId"));
+			System.out.println(productId);
+		}
+		
+		return 90;
+	}
+
 	@GetMapping("/test")
 	public String test() {
 		return "Order Controller";
