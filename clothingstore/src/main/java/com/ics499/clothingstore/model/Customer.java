@@ -26,7 +26,7 @@ public class Customer extends User {
 
 	public Customer(String firstName, String lastName, String address, String city, String state, String phoneNumber,
 			Date dateAccountCreated, String email) {
-		super(new ShoppingCart());
+		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -38,7 +38,7 @@ public class Customer extends User {
 	}
 
 	public Customer() {
-		super(new ShoppingCart());
+		super();
 	}
 
 	public long getId() {

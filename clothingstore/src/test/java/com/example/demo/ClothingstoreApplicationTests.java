@@ -1,154 +1,211 @@
 package com.example.demo;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ics499.clothingstore.ClothingstoreApplication;
-import com.ics499.clothingstore.model.CartItem;
 import com.ics499.clothingstore.model.Customer;
-import com.ics499.clothingstore.model.Guest;
+import com.ics499.clothingstore.model.Hat;
+import com.ics499.clothingstore.model.Hat.HatType;
+import com.ics499.clothingstore.model.Order;
+import com.ics499.clothingstore.model.OrderItem;
+import com.ics499.clothingstore.model.Pants;
+import com.ics499.clothingstore.model.Pants.PantsType;
 import com.ics499.clothingstore.model.Product;
+import com.ics499.clothingstore.model.Shirt;
+import com.ics499.clothingstore.model.Shirt.ShirtType;
 import com.ics499.clothingstore.model.Shoes;
-import com.ics499.clothingstore.model.ShoppingCart;
-import com.ics499.clothingstore.repository.CartItemRepository;
+import com.ics499.clothingstore.model.Shoes.ShoesType;
+import com.ics499.clothingstore.model.Transaction;
 import com.ics499.clothingstore.repository.CustomerRepository;
-import com.ics499.clothingstore.repository.ProductRepository;
-import com.ics499.clothingstore.repository.ShoppingCartRepository;
-import com.ics499.clothingstore.repository.UserRepository;
+import com.ics499.clothingstore.repository.HatRepository;
 import com.ics499.clothingstore.repository.OrderRepository;
-import com.ics499.clothingstore.repository.OrderItemRepository;
+import com.ics499.clothingstore.repository.PantsRepository;
+import com.ics499.clothingstore.repository.ProductRepository;
+import com.ics499.clothingstore.repository.ShirtRepository;
+import com.ics499.clothingstore.repository.ShoesRepository;
+import com.ics499.clothingstore.repository.UserRepository;
 
 @SpringBootTest(classes = ClothingstoreApplication.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Transactional
 class ClothingstoreApplicationTests {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private CustomerRepository customerRepository;
-	
+
 	@Autowired
 	private ProductRepository<?> productRepository;
-	
+
 	@Autowired
-	private CartItemRepository cartItemRepository;
-	
+	private ShirtRepository shirtRepository;
+
 	@Autowired
-	private ShoppingCartRepository shoppingCartRepository;
-	
+	private PantsRepository pantsRepository;
+
+	@Autowired
+	private HatRepository hatRepository;
+
+	@Autowired
+	private ShoesRepository shoesRepository;
+
 	@Autowired
 	private OrderRepository orderRepository;
-	
-	@Autowired
-	private OrderItemRepository orderItemRepository;
 
 	@Test
-	@Order(1)
-	void reposAreNotNull() {
-		assertThat(userRepository).isNotNull();
-	}
-	
-	//String firstName, String lastName, String address, String city, String state, String phoneNumber,
-	//Date dateAccountCreated
+	void createUser() {
 
-	@Test
-	@Order(2)
-	void createUsers() {
+		Customer customer = new Customer("a firstname", "a lastname", "an address", "a city", "a state",
+				"a phone number", new Date(), "an email");
 
-		Guest guest = new Guest();
-		
-		Customer customer = new Customer("a firstname", "a lastname", "an address", "a city", 
-				"a state", "a phone number", new Date(), "an email");
+		// user repository is parent of customer repository
 		userRepository.save(customer);
-		userRepository.save(guest);
-		
+
 		Customer databaseCustomer = customerRepository.findByName("a firstname");
 		assertThat(databaseCustomer).isNotNull();
 		assertThat(databaseCustomer.getFirstName()).isEqualTo("a firstname");
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@Test
-	@Transactional
-	@Order(3)
-	void addProductToUserCart() {
-		//Create a customer
-		Customer customer = new Customer("MrCart", "a lastname", "an address", "a city", 
-				"a state", "a phone number", new Date(), "an email");
+	void addVariousProductsToDb() {
+		// add shirt to db
+		shirtRepository.save(new Shirt((float) 12.20, 3, "cool shirt", "shirt brand", "red", "XXL", "loose",
+				ShirtType.tShirt, "image file path for front end"));
+
+		// add pants to db
+		pantsRepository.save(new Pants((float) 20.00, 3, "cool cargo pants", "cargo pants brand", "tan", "medium",
+				"medium", PantsType.Cargo, false, false, false, "image file path for front end"));
+
+		// add hat to db
+		hatRepository.save(new Hat((float) 15.50, 3, "beanie hat description", "the beanie hat guys", "gray", "M",
+				"loose", HatType.Beanie, "image file path for front end"));
+
+		// add shoes to db
+		shoesRepository.save(new Shoes((float) 30.00, 3, "winter boots", "polarboots", "black", "12", "medium",
+				ShoesType.boots, "image file path for front end"));
+
+		// confirm from parent products table that they are all there
+		List<Product> products = productRepository.findAll();
+
+		// assert that each product is in the list
+		assertTrue(products.contains(new Shirt((float) 12.20, 3, "cool shirt", "shirt brand", "red", "XXL", "loose",
+				ShirtType.tShirt, "image file path for front end")));
+		assertTrue(products.contains(new Pants((float) 20.00, 3, "cool cargo pants", "cargo pants brand", "tan",
+				"medium", "medium", PantsType.Cargo, false, false, false, "image file path for front end")));
+		assertTrue(products.contains(new Hat((float) 15.50, 3, "beanie hat description", "the beanie hat guys", "gray",
+				"M", "loose", HatType.Beanie, "image file path for front end")));
+		assertTrue(products.contains(new Shoes((float) 30.00, 3, "winter boots", "polarboots", "black", "12", "medium",
+				ShoesType.boots, "image file path for front end")));
+
+		List<Shirt> shirts = shirtRepository.findAll();
+
+		// assert that ONLY the shirt is in the shirt repository
+		assertFalse(shirts.contains(new Shoes((float) 30.00, 3, "winter boots", "polarboots", "black", "12", "medium",
+				ShoesType.boots, "image file path for front end")));
+
+	}
+
+	@Test
+	void saveOrderFromFrontendWithoutAccount() {
+		// In this instance, we would get a JSON of the order total, and list of
+		// products, and their quantities.
+		// In practice we would have to parse the JSON
+		List<OrderItem> items = new ArrayList<>();
+
+		List<Product> products = productRepository.findAll();
+
+		Order order = new Order();
+
+		// add the first 10 products, and 3 of each product
+		for (int i = 0; i < 10; i++) {
+			items.add(new OrderItem(order, products.get(i), 3));
+		}
+
+		order.setOrderItems(items);
 		
-		//get the customers cart
-		ShoppingCart customerCart = customer.getUserCart();
+		//Need to add transaction info, save in another table for security reasons
+		//Payment type, card num, CVC, exp date, transaction total, transaction date, is return, user account
+		order.setTransaction(new Transaction("Visa", "card num goes here", 323, new Date(),
+				120.20, new Date(), false));
+
+		orderRepository.save(order);
+
+		/**
+		 * We only have 1 order in the database so this works, but in practice if we wanted
+		 * a customer's order we would want to search for it in the repo
+		 */
+		List<Order> orderList = orderRepository.findAll();
+
+		assertThat(orderList).isNotNull();
+		assertThat(orderList.size()).isEqualTo(1);
 		
-		//create nike shoes
-		Product nikeShoes = new Shoes();
-		nikeShoes.setBrand("Nike");
+		List<OrderItem> fromRepoItems = orderList.get(0).getOrderItems();
+
+		assertThat(fromRepoItems).isNotNull();
+		assertThat(fromRepoItems.size()).isEqualTo(10);
+		assertThat(fromRepoItems.get(3).getQuantity()).isEqualTo(3);
 		
-		//for ordering 3 of this type of shoe
-		CartItem cartItem = new CartItem(customerCart, nikeShoes, 3);
+		Transaction orderTransaction = orderList.get(0).getTransaction();
 		
-		//add item to customer cart
-		customerCart.addToCart(cartItem);
+		assertThat(orderTransaction.getCreditCardNumber()).isEqualTo("card num goes here");
+	}
+
+	@Test
+	void saveOrderFromFrontendWithAccount() {
+		// lets say we get an order for the customer "a firstname" from the front end
+		// for demonstration we are just pulling it from the repo
+		Customer customer = customerRepository.findByName("Dylan");
+
+		List<Product> products = productRepository.findAll();
+
+		Order order = new Order();
+
+		// add the first 10 products, and 2 of each product
+		List<OrderItem> items = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			items.add(new OrderItem(order, products.get(i), 2));
+		}
+
+		order.setOrderItems(items);
 		
-		//update the customers cart with changes
-		customer.setUserCart(customerCart);
-		
-		//(all these were needed before CascadeType.ALL)
-			//add product to db
-			//productRepository.save(nikeShoes);
-			
-			//add shopping cart to db
-			//shoppingCartRepository.save(customerCart);
-			
-			//add cartitem to db
-			//cartItemRepository.save(cartItem);
-		
-		//save customer to db
+		order.setTransaction(new Transaction("Visa", "card num goes here", 323, new Date(),
+				120.20, new Date(), false));
+
+		customer.addOrder(order);
+
 		customerRepository.save(customer);
+
+		Customer custFromRepo = customerRepository.findByName("Dylan");
+
+		List<Order> orderList = custFromRepo.getOrders();
+
+		assertThat(orderList).isNotNull();
+		assertThat(orderList.size()).isEqualTo(1);
+
+		List<OrderItem> fromRepoItems = orderList.get(0).getOrderItems();
+
+		assertThat(fromRepoItems).isNotNull();
+		assertThat(fromRepoItems.size()).isEqualTo(10);
+		assertThat(fromRepoItems.get(3).getQuantity()).isEqualTo(2);
 		
-		//check that user repository is not empty
-		assertThat(userRepository.findAll()).isNotNull();
+		Transaction orderTransaction = orderList.get(0).getTransaction();
 		
-		//check that customer is in repo
-		assertThat(customerRepository.findByName("MrCart")).isNotNull();
-		
-		//get MrCart shopping cart id
-		//TODO need a SQL statement in customer repo to find a customer's cart given first name
-		
-		//confirm that a shopping cart with this shopping cart id is in the shopping cart table
-		//assertThat(shoppingCartRepository.findAllById(cartId)).isNotNull();
-		
-		//check that product is in repo
-		assertThat(productRepository.findByBrand("Nike")).isNotNull();
-		
-		//check that there is a cart item in the repo that matches the product
-		//TODO need a SQL statement in cart item repo to get a cart item based on a given product ID
+		assertThat(orderTransaction.getCreditCardNumber()).isEqualTo("card num goes here");
 	}
-	
-	@Test
-	@Order(4)
-	void addTransactionToUser() {
-	}
-	
-	@Test
-	@Order(5)
-	void submitOrder() {
-		//add transaction to transaction history for user
-		
-		//clear cart items for this user
-	}
-	
-	@Test
-	@Order(6)
-	void addRewardsToUser() {
-	}
+
 }

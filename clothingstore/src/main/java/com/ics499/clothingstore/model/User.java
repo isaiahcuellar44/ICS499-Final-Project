@@ -20,32 +20,26 @@ public abstract class User {
 	@GeneratedValue
 	private long userId;
 	
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
-	private ShoppingCart userCart;
-    
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Transaction> transactions;
-    
-	public User(ShoppingCart shoppingCart) {
-		super();
-		this.userCart = shoppingCart;
-	}
-    
+	private List<Order> orders;
+	
 	public User() {
 		super();
-		this.userCart = new ShoppingCart();
 	}
 
 	public long getUserId() {
 		return userId;
 	}
 
-	public ShoppingCart getUserCart() {
-		return userCart;
+	public List<Order> getOrders() {
+		return orders;
 	}
 
-	public void setUserCart(ShoppingCart userCart) {
-		this.userCart = userCart;
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+	
+	public void addOrder(Order order) {
+		this.orders.add(order);
 	}
 }

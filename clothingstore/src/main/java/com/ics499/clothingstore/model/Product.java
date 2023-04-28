@@ -22,17 +22,14 @@ public abstract class Product {
 	@GeneratedValue
 	private long productId;
 
-	private float price;
-	private int stock;
-	private String Description;
-	private String brand;
-	private String color;
-	private String size;
-	private String fit;
-	private String image_source;
-
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-	private List<CartItem> cartItems;
+	protected float price;
+	protected int stock;
+	protected String description;
+	protected String brand;
+	protected String color;
+	protected String size;
+	protected String fit;
+	protected String image_source;
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -43,7 +40,7 @@ public abstract class Product {
 		super();
 		this.price = price;
 		this.stock = stock;
-		Description = description;
+		this.description = description;
 		this.brand = brand;
 		this.color = color;
 		this.size = size;
@@ -88,11 +85,11 @@ public abstract class Product {
 	}
 
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 
 	public void setDescription(String description) {
-		Description = description;
+		description = description;
 	}
 
 	public String getBrand() {
@@ -129,7 +126,7 @@ public abstract class Product {
 
 	@Override
 	public String toString() {
-		return "Product [price=" + price + ", stock=" + stock + ", Description=" + Description + ", brand=" + brand
+		return "Product [price=" + price + ", stock=" + stock + ", Description=" + description + ", brand=" + brand
 				+ ", color=" + color + ", size=" + size + ", fit=" + fit + "]";
 	}
 

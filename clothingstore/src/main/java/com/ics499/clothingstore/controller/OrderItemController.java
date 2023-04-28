@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ics499.clothingstore.model.CartItem;
 import com.ics499.clothingstore.model.OrderItem;
-import com.ics499.clothingstore.repository.CartItemRepository;
 import com.ics499.clothingstore.repository.OrderItemRepository;
 
 @RestController

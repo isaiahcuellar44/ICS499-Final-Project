@@ -2,7 +2,7 @@
 INSERT INTO product (product_id, description, brand, color, fit, price, size, stock, image_source)
 VALUES (1005, 'V-Neck 100% cotton slim fit tee', 'hanes','white', 'slim', '49.99', 'XL', '10', '/assets/img/shirt1.png');
 INSERT INTO shirt(type, product_id)
-VALUES(7, 1005);
+VALUES(6, 1005);
 
 INSERT INTO product (product_id, description, brand, color, fit, price, size, stock, image_source)
 VALUES ('1004', '100% cotton tee', 'hanes', 'black', 'tshirt', '49.99', 'XL', '10', '/assets/img/shirt2.png');

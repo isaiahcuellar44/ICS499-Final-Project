@@ -30,6 +30,10 @@ public class OrderItem {
 		this.product = product;
 		this.setQuantity(quantity);
 	}
+	
+	public OrderItem() {
+		super();
+	}
 
 	public long getOrderItemId() {
 		return orderItemId;
