@@ -36,4 +36,11 @@ public class OrderServiceImp {
 		String orderitems = orderInformation.get("orderItems");
 
 	}
+
+	public void saveJson(String jsonString) {
+		Order order = new Order();
+		order.setItemList(jsonString);
+		orderRepository.save(order);
+	}
+
 }

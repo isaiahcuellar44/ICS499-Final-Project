@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -21,6 +22,16 @@ public class Order {
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems;
+	@Lob
+	private String itemList;
+
+	public String getItemList() {
+		return itemList;
+	}
+
+	public void setItemList(String itemList) {
+		this.itemList = itemList;
+	}
 
 	@OneToOne
 	@JoinColumn(name = "UserID")

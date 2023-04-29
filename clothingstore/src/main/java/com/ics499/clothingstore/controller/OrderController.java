@@ -27,27 +27,36 @@ public class OrderController {
 
 //public long createOrder(@RequestBody Map<String, Object> orderInformation) {
 	@PostMapping("/createOrder")
-	public long createOrder(@RequestBody OrderRequest orderRequest) {
-		// createOrder - return order ID.
-		System.out.println("hi");
-		// System.out.println(orderInformation);
-		List<Product> productList = orderRequest.getProducts();
-		for (Product product : productList) {
-			System.out.println(product.getBrand());
+	public long createOrder(@RequestBody OrderRequest orderInformation) {
+		List<Product> productList = orderInformation.getProducts();
+		if (productList == null) {
+			System.out.println("haha");
 		}
-//		if (orderInformation.containsKey("products")) {
-//			Object productsObject = orderInformation.get("products");
+		if (productList != null) {
+			for (Product product : productList) {
+				System.out.println(product.toString());
+			}
+		}
+//		// createOrder - return order ID.
+//		System.out.println("hi");
+//		// System.out.println(orderInformation);
+//		
+//		for (Product product : productList) {
+//			System.out.println(product.getBrand());
+//		}
+////		if (orderInformation.containsKey("products")) {
+////			Object productsObject = orderInformation.get("products");
+////
+////			if (productsObject instanceof List) {
+////				productList = (List<Product>) productsObject;
+////			}
+////		}
 //
-//			if (productsObject instanceof List) {
-//				productList = (List<Product>) productsObject;
-//			}
-//		}
-
-//		if (productList != null) {
-//			for (Product product : productList) {
-//				System.out.println(product.getBrand());
-//			}
-//		}
+////		if (productList != null) {
+////			for (Product product : productList) {
+////				System.out.println(product.getBrand());
+////			}
+////		}
 
 		return 90;
 
