@@ -44,23 +44,23 @@ public class OrderController {
 //public long createOrder(@RequestBody Map<String, Object> orderInformation) {
 	@SuppressWarnings("unchecked")
 	@PostMapping("/createOrder")
-	public long createOrder(@RequestBody Map<String, Object> orderInformation, String custID) {
+	public long createOrder(@RequestBody Map<String, Object> orderInformation) {
 		LinkedHashMap<String, Object> orderMap = (LinkedHashMap<String, Object>) orderInformation.get("orderItems");
 		ArrayList<LinkedHashMap<String, String>> orderProducts = (ArrayList<LinkedHashMap<String, String>>) orderMap
 				.get("products");
 
 		Order order = new Order();
+		
 		Transaction transaction = new Transaction();
 		transaction.setTotal((double) orderMap.get("totalCost"));
 		order.setTransaction(transaction);
-		List<OrderItem> itemsList = new ArrayList();
-
+		transaction.setOrder(order);
+		
 		for (LinkedHashMap<String, String> prod : orderProducts) {
 			long productId = Long.parseLong(String.valueOf(prod.get("productId")));
 			var product = productRepository.findById(productId);
 			OrderItem orderItem = new OrderItem();
 
-			orderItem.setOrder(order);
 			orderItem.setQuantity(Integer.parseInt(String.valueOf(prod.get("quantity"))));
 
 			if (product instanceof Shirt) {
@@ -72,18 +72,20 @@ public class OrderController {
 			} else if (product instanceof Pants) {
 				orderItem.setProduct((Pants) product);
 			}
-			itemsList.add(orderItem);
+			
+			orderItem.setOrder(order);
+			order.addToOrder(orderItem);
 		}
-		Customer foundCustomer = customerRepository.findByUserId(Long.parseLong(custID));
-		if (!foundCustomer.equals(null)) {
+		
+		if(orderInformation.get("username") == null) {
+			Customer foundCustomer = customerRepository.findByUsername(String.valueOf(orderInformation.get("username")));
 			order.setUser(foundCustomer);
 		} else {
 			order.setUser(new Guest());
 		}
-
-		System.out.println(order.getId());
-		orderRepository.save(order);
-		return order.getId();
+		
+		Order savedOrder = orderRepository.save(order);
+		return savedOrder.getId();
 	}
 
 	@GetMapping("/test")

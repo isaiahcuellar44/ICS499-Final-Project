@@ -47,6 +47,14 @@ public class Transaction implements Payment {
 
 	}
 
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
 	public String getPaymentMethod() {
 		return paymentMethod;
 	}

@@ -18,7 +18,7 @@ public class Order {
 
 	@Id
 	@GeneratedValue
-	private Long orderId;
+	private long orderId;
 	private static final double shippingCost = 4.99;
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -35,20 +35,11 @@ public class Order {
 	public Order(List<OrderItem> orderItems) {
 		super();
 		this.orderItems = orderItems;
-		generateId();
 	}
 
 	public Order() {
 		super();
 		this.orderItems = new ArrayList<OrderItem>();
-		generateId();
-	}
-
-	@PostPersist
-	private void generateId() {
-		if (orderId == null) {
-			orderId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-		}
 	}
 
 	public Transaction getTransaction() {
