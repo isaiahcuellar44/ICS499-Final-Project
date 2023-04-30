@@ -48,10 +48,18 @@ public class OrderController {
 		LinkedHashMap<String, Object> orderMap = (LinkedHashMap<String, Object>) orderInformation.get("orderItems");
 		ArrayList<LinkedHashMap<String, String>> orderProducts = (ArrayList<LinkedHashMap<String, String>>) orderMap
 				.get("products");
-
+		
+		LinkedHashMap<String, String> checkoutInfo = (LinkedHashMap<String, String>) orderInformation.get("checkoutInfo");
+		
 		Order order = new Order();
 		
 		Transaction transaction = new Transaction();
+		
+		System.out.println(checkoutInfo);
+		System.out.println(checkoutInfo.get("cardNum"));
+		
+		transaction.setCreditCardNumber(checkoutInfo.get("cardNum"));
+		
 		transaction.setTotal((double) orderMap.get("totalCost"));
 		order.setTransaction(transaction);
 		transaction.setOrder(order);
