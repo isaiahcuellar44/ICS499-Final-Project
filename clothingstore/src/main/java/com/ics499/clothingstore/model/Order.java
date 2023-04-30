@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -15,7 +16,7 @@ import javax.persistence.OneToOne;
 public class Order {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long orderId;
 	private static final double shippingCost = 4.99;
 
@@ -25,7 +26,7 @@ public class Order {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "UserID")
 	private User user;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "transactionId")
 	private Transaction transaction;

@@ -30,7 +30,7 @@ public class OrderItem {
 		this.product = product;
 		this.setQuantity(quantity);
 	}
-	
+
 	public OrderItem() {
 		super();
 	}
@@ -59,4 +59,7 @@ public class OrderItem {
 		return this.product;
 	}
 
+	public Product setProduct(Product p) {
+		return this.product;
+	}
 }
