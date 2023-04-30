@@ -11,6 +11,14 @@ import com.ics499.clothingstore.model.Customer;
 import com.ics499.clothingstore.repository.CustomerRepository;
 import com.ics499.clothingstore.service.CustomerService;
 
+/**
+ * Customer Service Implementation. Works with Controller to change, update, and
+ * return data to the front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
 @SpringBootApplication
 public class CustomerServiceImp implements CustomerService {
 	@Autowired

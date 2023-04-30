@@ -7,20 +7,24 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+/**
+ * Transaction model. Extension of Payment, Transaction is the confirmation of
+ * payment when a order is placed.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
 @Entity
 public class Transaction implements Payment {
 
 	@Id
 	@GeneratedValue
 	private long transactionId;
-	
+
 	private String paymentMethod;// could this be a enum? like Visa, Mastercard, discover?
 	private String creditCardNumber;
 	private int creditCardCV;
@@ -28,10 +32,10 @@ public class Transaction implements Payment {
 	private double total;
 	private Date transactionDate;
 	private boolean isReturn;// should returns be it's own subclass?
-	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TomW 
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TomW
 	@JoinColumn(name = "orderId")
-	private Order order;	
+	private Order order;
 
 	public Transaction(String paymentMethod, String creditCardNumber, int creditCardCV, Date creditCardExpirationDate,
 			double total, Date transactionDate, boolean isReturn) {
@@ -88,7 +92,7 @@ public class Transaction implements Payment {
 	public void setCreditCardExpirationDate(Date creditCardExpirationDate) {
 		this.creditCardExpirationDate = creditCardExpirationDate;
 	}
-	 
+
 	public double getTotal() {
 		return total;
 	}
@@ -114,15 +118,14 @@ public class Transaction implements Payment {
 	}
 
 	/*
-	@Override
-	public String toString() {
-		return "Transaction [PaymentMethod=" + PaymentMethod + ", creditCardNumber=" + creditCardNumber
-				+ ", creditCardCV=" + creditCardCV + ", creditCardExpirationDate=" + creditCardExpirationDate
-				+ ", cart=" + cart + ", total=" + total + ", transactionDate=" + transactionDate + ", isReturn="
-				+ isReturn + ", userAccountId=" + userAccountId + "]";
-	}
-	*/
-	
+	 * @Override public String toString() { return "Transaction [PaymentMethod=" +
+	 * PaymentMethod + ", creditCardNumber=" + creditCardNumber + ", creditCardCV="
+	 * + creditCardCV + ", creditCardExpirationDate=" + creditCardExpirationDate +
+	 * ", cart=" + cart + ", total=" + total + ", transactionDate=" +
+	 * transactionDate + ", isReturn=" + isReturn + ", userAccountId=" +
+	 * userAccountId + "]"; }
+	 */
+
 	@Override
 	public String doSomeEncrypting() {
 		return null;

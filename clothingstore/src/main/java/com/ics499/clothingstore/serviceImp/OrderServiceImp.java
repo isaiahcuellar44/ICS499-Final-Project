@@ -4,6 +4,14 @@ import com.ics499.clothingstore.model.Order;
 import com.ics499.clothingstore.model.OrderItem;
 import com.ics499.clothingstore.repository.OrderRepository;
 
+/**
+ * Order Service Implementation. Works with Controller to change, update, and
+ * return data to the front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
 public class OrderServiceImp {
 
 	private OrderRepository orderRepository;

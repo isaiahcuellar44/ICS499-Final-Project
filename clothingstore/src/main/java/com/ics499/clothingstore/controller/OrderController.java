@@ -27,6 +27,14 @@ import com.ics499.clothingstore.repository.CustomerRepository;
 import com.ics499.clothingstore.repository.OrderRepository;
 import com.ics499.clothingstore.repository.ProductRepository;
 
+/**
+ * Order Controller, used to send information to Angular Front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @RestController
 @RequestMapping("/order")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -41,29 +49,29 @@ public class OrderController {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-//public long createOrder(@RequestBody Map<String, Object> orderInformation) {
 	@SuppressWarnings("unchecked")
 	@PostMapping("/createOrder")
 	public long createOrder(@RequestBody Map<String, Object> orderInformation) {
 		LinkedHashMap<String, Object> orderMap = (LinkedHashMap<String, Object>) orderInformation.get("orderItems");
 		ArrayList<LinkedHashMap<String, String>> orderProducts = (ArrayList<LinkedHashMap<String, String>>) orderMap
 				.get("products");
-		
-		LinkedHashMap<String, String> checkoutInfo = (LinkedHashMap<String, String>) orderInformation.get("checkoutInfo");
-		
+
+		LinkedHashMap<String, String> checkoutInfo = (LinkedHashMap<String, String>) orderInformation
+				.get("checkoutInfo");
+
 		Order order = new Order();
-		
+
 		Transaction transaction = new Transaction();
-		
+
 		System.out.println(checkoutInfo);
 		System.out.println(checkoutInfo.get("cardNum"));
-		
+
 		transaction.setCreditCardNumber(checkoutInfo.get("cardNum"));
-		
+
 		transaction.setTotal((double) orderMap.get("totalCost"));
 		order.setTransaction(transaction);
 		transaction.setOrder(order);
-		
+
 		for (LinkedHashMap<String, String> prod : orderProducts) {
 			long productId = Long.parseLong(String.valueOf(prod.get("productId")));
 			var product = productRepository.findById(productId);
@@ -80,18 +88,19 @@ public class OrderController {
 			} else if (product instanceof Pants) {
 				orderItem.setProduct((Pants) product);
 			}
-			
+
 			orderItem.setOrder(order);
 			order.addToOrder(orderItem);
 		}
-		
-		if(orderInformation.get("username") == null) {
-			Customer foundCustomer = customerRepository.findByUsername(String.valueOf(orderInformation.get("username")));
+
+		if (orderInformation.get("username") == null) {
+			Customer foundCustomer = customerRepository
+					.findByUsername(String.valueOf(orderInformation.get("username")));
 			order.setUser(foundCustomer);
 		} else {
 			order.setUser(new Guest());
 		}
-		
+
 		Order savedOrder = orderRepository.save(order);
 		return savedOrder.getId();
 	}
