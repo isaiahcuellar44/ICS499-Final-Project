@@ -3,7 +3,7 @@ package com.ics499.clothingstore.model;
 import javax.persistence.Entity;
 
 /**
- * Guest Model, used to represent
+ * Guest Model, used to represent a user with no account.
  * 
  * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
  *         McClernon
