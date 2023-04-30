@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PostPersist;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Order {
 
@@ -22,6 +24,7 @@ public class Order {
 	private static final double shippingCost = 4.99;
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<OrderItem> orderItems;
 
 	@OneToOne(cascade = CascadeType.ALL)
