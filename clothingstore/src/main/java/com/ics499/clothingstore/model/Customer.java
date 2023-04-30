@@ -7,6 +7,14 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 
+/**
+ * Customer Model, used to represent a customer object inside the DB.
+ * essentially an account
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
 @Entity
 public class Customer extends User {
 

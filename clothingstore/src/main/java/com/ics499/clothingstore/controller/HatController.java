@@ -12,8 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ics499.clothingstore.model.Hat;
-import com.ics499.clothingstore.model.Shirt;
 import com.ics499.clothingstore.repository.HatRepository;
+
+/**
+ * Hat Controller, used to send information to Angular Front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
 
 @RestController
 @RequestMapping("/hat")
@@ -22,16 +29,9 @@ public class HatController {
 
 	@Autowired
 	HatRepository hatRepository;
-//	@Autowired
-//	private ProductServiceImp prodServ;
 
 	@GetMapping("/test")
 	public String test() {
-
-		// Hat hatToAdd = new Hat(10, 4, "Cool hat", "adidas", "green", "10", "yes",
-		// HatType.Bucket);
-		// prodServ.addHat(10, 4, "Cool hat", "adidas", "green", "10", "yes",
-		// HatType.Bucket);
 		return "Hat Controller";
 	}
 
@@ -59,12 +59,12 @@ public class HatController {
 	public Hat create(@RequestBody final Hat hat) {
 		return hatRepository.saveAndFlush(hat);
 	}
-	
+
 	@GetMapping("/getAll")
 	public List<Hat> getAll() {
 		return hatRepository.findAll();
 	}
-	
+
 	@GetMapping("/getById/{id}")
 	public Hat getById(@PathVariable("id") Long id) {
 		return hatRepository.findByProductId(id);

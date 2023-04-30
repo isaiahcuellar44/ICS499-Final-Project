@@ -11,9 +11,15 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+/**
+ * Product Model, Parent of all types of products. Represents all products in
+ * DB.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Product {
@@ -34,7 +40,7 @@ public abstract class Product {
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<ProductReview> productReviews;
-  
+
 	public Product(float price, int stock, String description, String brand, String color, String size, String fit,
 			String imageSource) {
 		super();
@@ -61,7 +67,7 @@ public abstract class Product {
 	}
 
 	public void setProductId(long productId) {
-	    this.productId = productId;
+		this.productId = productId;
 	}
 
 	public long getProductId() {

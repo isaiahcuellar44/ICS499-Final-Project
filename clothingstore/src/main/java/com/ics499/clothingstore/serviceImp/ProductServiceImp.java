@@ -18,6 +18,16 @@ import com.ics499.clothingstore.repository.ProductRepository;
 import com.ics499.clothingstore.repository.ShirtRepository;
 import com.ics499.clothingstore.repository.ShoesRepository;
 
+/**
+ * Product Service Implementation. Works with Controller to change, update, and
+ * return data to the front end.
+ * 
+ * Needs to work with repository of each subclass. Hat, Pants, Shirt, Shoes.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
 @SpringBootApplication
 public class ProductServiceImp {
 
