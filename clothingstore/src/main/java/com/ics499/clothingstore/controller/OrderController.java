@@ -14,8 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ics499.clothingstore.model.Hat;
 import com.ics499.clothingstore.model.Order;
+import com.ics499.clothingstore.model.OrderItem;
+import com.ics499.clothingstore.model.Pants;
+import com.ics499.clothingstore.model.Shirt;
+import com.ics499.clothingstore.model.Shoes;
+import com.ics499.clothingstore.model.Transaction;
 import com.ics499.clothingstore.repository.OrderRepository;
+import com.ics499.clothingstore.repository.ProductRepository;
 
 @RestController
 @RequestMapping("/order")
@@ -24,24 +31,39 @@ public class OrderController {
 
 	@Autowired
 	OrderRepository orderRepository;
+	
+	@Autowired
+	ProductRepository productRepository;
 
 //public long createOrder(@RequestBody Map<String, Object> orderInformation) {
 	@SuppressWarnings("unchecked")
 	@PostMapping("/createOrder")
 	public long createOrder(@RequestBody Map<String, Object> orderInformation) {
-		// createOrder - return order ID.
 		LinkedHashMap<String, Object> orderMap = (LinkedHashMap<String, Object>) orderInformation.get("orderItems");
-		
-		System.out.println(orderMap.get("products"));
-		System.out.println(orderMap.get("totalCost"));
-		
 		ArrayList<LinkedHashMap<String, String>> orderProducts = (ArrayList<LinkedHashMap<String, String>>) orderMap.get("products");
 		
-		System.out.println(orderProducts);
+		Order order = new Order();
+		Transaction transaction = new Transaction();
+		transaction.setTotal((double) orderMap.get("totalCost"));
+		order.setTransaction(transaction);
 		
 		for(LinkedHashMap<String, String> prod : orderProducts) {
-			String productId = String.valueOf(prod.get("productId"));
-			System.out.println(productId);
+			long productId = Long.parseLong(String.valueOf(prod.get("productId")));
+			var product = productRepository.findById(productId);
+			OrderItem orderItem = new OrderItem();
+			
+			orderItem.setOrder(order);
+			orderItem.setQuantity(Integer.parseInt(String.valueOf(prod.get("quantity"))));
+			
+			if (product instanceof Shirt) {
+				orderItem.setProduct((Shirt) product);
+			} else if (product instanceof Hat) {
+				orderItem.setProduct((Hat) product);
+			} else if (product instanceof Shoes) {
+				orderItem.setProduct((Shoes) product);
+			} else if (product instanceof Pants) {
+				orderItem.setProduct((Pants) product);
+			}
 		}
 		
 		return 90;

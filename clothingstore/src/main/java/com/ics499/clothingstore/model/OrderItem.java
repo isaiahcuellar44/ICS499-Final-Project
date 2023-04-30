@@ -59,4 +59,8 @@ public class OrderItem {
 		return this.product;
 	}
 
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
 }
