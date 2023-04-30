@@ -2,6 +2,7 @@ package com.ics499.clothingstore.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PostPersist;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Order {
@@ -20,12 +24,13 @@ public class Order {
 	private static final double shippingCost = 4.99;
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<OrderItem> orderItems;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "UserID")
 	private User user;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "transactionId")
 	private Transaction transaction;
