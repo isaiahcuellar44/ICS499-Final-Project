@@ -10,6 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+/**
+ * Transaction model. Extension of Payment, Transaction is the confirmation of
+ * payment when a order is placed.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @Entity
 public class Transaction {
 

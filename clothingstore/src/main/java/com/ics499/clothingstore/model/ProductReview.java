@@ -8,6 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+/**
+ * Product Review Model, represents a review to be displayed on front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @Entity
 public class ProductReview {
 
@@ -53,12 +61,8 @@ public class ProductReview {
 	}
 
 	public long getProductId() {
-		return this.product.getProductId(); // -- TomW
+		return this.product.getProductId();
 	}
-
-//	public void setProductId(long productId) {
-//		this.productId = productId;
-//	}
 
 	public long getId() {
 		return this.reviewId;
@@ -87,11 +91,5 @@ public class ProductReview {
 	public void setReview(String review) {
 		this.review = review;
 	}
-
-	/*
-	 * @Override public String toString() { return "ProductReview [product=" +
-	 * product + ", rating=" + rating + ", userAccountID=" + userAccountID +
-	 * ", review=" + review + "]"; }
-	 */
 
 }

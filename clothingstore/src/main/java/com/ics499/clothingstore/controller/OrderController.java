@@ -17,6 +17,14 @@ import com.ics499.clothingstore.repository.OrderRepository;
 import com.ics499.clothingstore.repository.ProductRepository;
 import com.ics499.clothingstore.service.OrderService;
 
+/**
+ * Order Controller, used to send information to Angular Front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @RestController
 @RequestMapping("/order")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -31,6 +39,12 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 
+	/**
+	 * Method used to create order, save to DB, then return the orderID.
+	 * 
+	 * @param orderInformation
+	 * @return
+	 */
 	@PostMapping("/createOrder")
 	public long createOrder(@RequestBody Map<String, Object> orderInformation) {
 		return orderService.createOrder(orderInformation);

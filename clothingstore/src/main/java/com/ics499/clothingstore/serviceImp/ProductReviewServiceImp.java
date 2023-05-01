@@ -17,6 +17,14 @@ import com.ics499.clothingstore.repository.ShirtRepository;
 import com.ics499.clothingstore.repository.ShoesRepository;
 import com.ics499.clothingstore.service.ProductReviewService;
 
+/**
+ * Product review service Implementation. Works with Controller to change,
+ * update, and return data to the front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
 @Service
 public class ProductReviewServiceImp implements ProductReviewService {
 

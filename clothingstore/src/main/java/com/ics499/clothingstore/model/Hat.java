@@ -4,6 +4,14 @@ import java.util.Objects;
 
 import javax.persistence.Entity;
 
+/**
+ * Hat Model, specifies a hat in the DB
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @Entity
 public class Hat extends Product {
 

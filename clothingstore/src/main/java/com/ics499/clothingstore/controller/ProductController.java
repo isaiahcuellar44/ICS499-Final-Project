@@ -16,6 +16,14 @@ import com.ics499.clothingstore.model.Hat;
 import com.ics499.clothingstore.model.Product;
 import com.ics499.clothingstore.repository.ProductRepository;
 
+/**
+ * product Controller, used to send information to Angular Front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @RestController
 @RequestMapping("/product")
 @CrossOrigin(origins = "http://localhost:4200")

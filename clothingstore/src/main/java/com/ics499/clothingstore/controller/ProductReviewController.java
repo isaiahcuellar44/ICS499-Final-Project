@@ -17,6 +17,14 @@ import com.ics499.clothingstore.repository.ProductRepository;
 import com.ics499.clothingstore.repository.ProductReviewRepository;
 import com.ics499.clothingstore.service.ProductReviewService;
 
+/**
+ * Product Review Controller, used to send information to Angular Front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @RestController
 @RequestMapping("/productReview")
 @CrossOrigin(origins = "http://localhost:4200")

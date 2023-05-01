@@ -4,6 +4,14 @@ import java.util.Objects;
 
 import javax.persistence.Entity;
 
+/**
+ * Shirt model, used to represent a pair of pants in the DB.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @Entity
 public class Shirt extends Product {
 

@@ -14,6 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ics499.clothingstore.model.Guest;
 import com.ics499.clothingstore.repository.GuestRepository;
 
+/**
+ * Guest Controller, used to send information to Angular Front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @RestController
 @RequestMapping("guest")
 @CrossOrigin(origins = "http://localhost:4200")

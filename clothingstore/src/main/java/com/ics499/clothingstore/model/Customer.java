@@ -7,6 +7,15 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 
+/**
+ * Customer Model, used to represent a customer object inside the DB.
+ * essentially an account
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @Entity
 public class Customer extends User {
 
@@ -121,6 +130,11 @@ public class Customer extends User {
 		return password;
 	}
 
+	/**
+	 * sets password with MD5 encryption.
+	 * 
+	 * @param password
+	 */
 	public void setPassword(String password) {
 		try {
 			MessageDigest m = MessageDigest.getInstance("MD5");
@@ -139,21 +153,5 @@ public class Customer extends User {
 			e.printStackTrace();
 		}
 	}
-
-//	public Rewards getRewards() {   // took these out, customer rewards should be independent of customer object -- TomW
-//		return rewards;
-//	}
-//
-//	public void setRewards(Rewards rewards) {
-//		this.rewards = rewards;
-//	}
-
-	// @Override
-	// public String toString() {
-	// return "Account [address=" + address + ", city=" + city + ", state=" + state
-	// + ", phoneNumber=" + phoneNumber
-	// + ", dateAccountCreated=" + dateAccountCreated + ", transactionHistory=" +
-	// transactionHistory + "]";
-	// }
 
 }

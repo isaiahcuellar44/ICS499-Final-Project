@@ -7,6 +7,14 @@ import org.springframework.data.repository.query.Param;
 
 import com.ics499.clothingstore.model.Customer;
 
+/**
+ * Customer Repository for accessing DB
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 	@Query("SELECT c FROM Customer c WHERE c.firstName = ?1")

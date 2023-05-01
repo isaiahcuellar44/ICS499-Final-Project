@@ -24,6 +24,14 @@ import com.ics499.clothingstore.repository.OrderRepository;
 import com.ics499.clothingstore.repository.ProductRepository;
 import com.ics499.clothingstore.service.OrderService;
 
+/**
+ * Order Service Implementation. Works with Controller to change, update, and
+ * return data to the front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
 @Service
 public class OrderServiceImp implements OrderService {
 
@@ -55,6 +63,10 @@ public class OrderServiceImp implements OrderService {
 		orderRepository.saveAndFlush(order);
 	}
 
+	/**
+	 * creates a order. this needs to gather info from a JSON file and converts it
+	 * accordingly.
+	 */
 	@SuppressWarnings("unchecked")
 	public long createOrder(Map<String, Object> orderInformation) {
 		LinkedHashMap<String, Object> orderMap = (LinkedHashMap<String, Object>) orderInformation.get("orderItems");
@@ -66,10 +78,6 @@ public class OrderServiceImp implements OrderService {
 
 		Order order = new Order(checkoutInfo.get("billingName"), checkoutInfo.get("address"), checkoutInfo.get("city"),
 				checkoutInfo.get("state"), Integer.parseInt(checkoutInfo.get("zip")));
-
-		// String creditCardNumber, String cardName, int creditCardCV, Date
-		// creditCardExpirationDate,
-		// double total, Date transactionDate
 
 		String dateString = String.format("%02d/%04d", Integer.parseInt(checkoutInfo.get("expMonth")),
 				Integer.parseInt(checkoutInfo.get("expYear")));
@@ -121,15 +129,4 @@ public class OrderServiceImp implements OrderService {
 		return savedOrder.getId();
 	}
 
-	@Override
-	public void Order(Order order, OrderItem orderItem) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void saveOrder(Order order) {
-		// TODO Auto-generated method stub
-
-	}
 }

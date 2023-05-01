@@ -18,6 +18,14 @@ import com.ics499.clothingstore.repository.CustomerRepository;
 import com.ics499.clothingstore.service.CustomerService;
 import com.ics499.clothingstore.serviceImp.CustomerServiceImp;
 
+/**
+ * Customer Controller, used to send information to Angular Front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @RestController
 @RequestMapping("/customer")
 @CrossOrigin(origins = "http://localhost:4200")

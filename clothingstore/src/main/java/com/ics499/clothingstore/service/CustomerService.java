@@ -1,5 +1,12 @@
 package com.ics499.clothingstore.service;
 
+/**
+ * Customer Service Interface to setup implementation of service
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
 public interface CustomerService {
 	boolean isValid(String username, String password);
 

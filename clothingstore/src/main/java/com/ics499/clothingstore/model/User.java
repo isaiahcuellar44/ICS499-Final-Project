@@ -12,6 +12,14 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * User model. Partent of Guest and Customer, represents all users on the site.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {

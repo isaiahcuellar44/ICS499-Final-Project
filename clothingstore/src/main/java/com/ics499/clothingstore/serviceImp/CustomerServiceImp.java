@@ -11,12 +11,25 @@ import com.ics499.clothingstore.model.Customer;
 import com.ics499.clothingstore.repository.CustomerRepository;
 import com.ics499.clothingstore.service.CustomerService;
 
+/**
+ * Customer Service Implementation. Works with Controller to change, update, and
+ * return data to the front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
 @Service
 public class CustomerServiceImp implements CustomerService {
 
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	/**
+	 * checks iof username exists in DB, then checks if password matches.
+	 * 
+	 * @param username, password.
+	 */
 	@Override
 	public boolean isValid(String username, String password) {
 
@@ -88,6 +101,13 @@ public class CustomerServiceImp implements CustomerService {
 		}
 	}
 
+	/**
+	 * hashes the provided password with MD5, used when making account or changing
+	 * password.
+	 * 
+	 * @param password
+	 * @return
+	 */
 	public String hashPassword(String password) {
 
 		String hashedPassword = null;

@@ -14,6 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ics499.clothingstore.model.Shoes;
 import com.ics499.clothingstore.repository.ShoesRepository;
 
+/**
+ * Transaction Controller, used to send information to Angular Front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @RestController
 @RequestMapping("/shoes")
 @CrossOrigin(origins = "http://localhost:4200")

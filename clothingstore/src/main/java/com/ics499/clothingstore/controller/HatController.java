@@ -14,6 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ics499.clothingstore.model.Hat;
 import com.ics499.clothingstore.repository.HatRepository;
 
+/**
+ * Hat Controller, used to send information to Angular Front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @RestController
 @RequestMapping("/hat")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -27,10 +35,6 @@ public class HatController {
 	@GetMapping("/test")
 	public String test() {
 
-		// Hat hatToAdd = new Hat(10, 4, "Cool hat", "adidas", "green", "10", "yes",
-		// HatType.Bucket);
-		// prodServ.addHat(10, 4, "Cool hat", "adidas", "green", "10", "yes",
-		// HatType.Bucket);
 		return "Hat Controller";
 	}
 

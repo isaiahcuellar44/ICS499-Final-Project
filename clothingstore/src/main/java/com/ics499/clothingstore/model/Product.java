@@ -12,6 +12,15 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Product Model, Parent of all types of products. Represents all products in
+ * DB.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Product {

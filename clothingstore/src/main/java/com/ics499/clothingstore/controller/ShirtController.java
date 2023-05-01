@@ -14,6 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ics499.clothingstore.model.Shirt;
 import com.ics499.clothingstore.repository.ShirtRepository;
 
+/**
+ * Shirt Controller, used to send information to Angular Front end.
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle
+ *         McClernon
+ *
+ */
+
 @RestController
 @RequestMapping("/shirt")
 @CrossOrigin(origins = "http://localhost:4200")
