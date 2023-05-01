@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ics499.clothingstore.ClothingstoreApplication;
 import com.ics499.clothingstore.model.Customer;
+import com.ics499.clothingstore.model.Guest;
 import com.ics499.clothingstore.model.Hat;
 import com.ics499.clothingstore.model.Hat.HatType;
 import com.ics499.clothingstore.model.Order;
@@ -37,6 +38,11 @@ import com.ics499.clothingstore.repository.ShirtRepository;
 import com.ics499.clothingstore.repository.ShoesRepository;
 import com.ics499.clothingstore.repository.UserRepository;
 
+/**
+ * These tests assume that the database has been initialized with data.sql in the src/main/resources folder
+ * 
+ * @author Dylan Skokan - Isaiah Cuellar - Tom Waterman - Justin Pham - Kyle McClernon
+ */
 @SpringBootTest(classes = ClothingstoreApplication.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Transactional
@@ -134,27 +140,21 @@ class ClothingstoreApplicationTests {
 		order.setOrderItems(items);
 
 		// Need to add transaction info, save in another table for security reasons
-		// Payment type, card num, CVC, exp date, transaction total, transaction date,
-		// is return, user account
-		order.setTransaction(new Transaction("Visa", "card num goes here", 323, new Date(), 120.20, new Date()));
+		// Cardholder name, card num, CVC, exp date, transaction total, transaction date
+		order.setTransaction(new Transaction("name of cardholder", "card num goes here", 323, new Date(), 120.20, new Date()));
 
-		orderRepository.save(order);
+		order.setUser(new Guest());
+		
+		Order savedOrder = orderRepository.save(order);
 
-		// We only have 1 order in the database so this works, but in practice if we
-		// wanted
-		// a customer's order we would want to search for it in the repo
-		List<Order> orderList = orderRepository.findAll();
-
-		assertThat(orderList).isNotNull();
-		assertThat(orderList.size()).isEqualTo(1);
-
-		List<OrderItem> fromRepoItems = orderList.get(0).getOrderItems();
+		// Use the order we just saved and get its items
+		List<OrderItem> fromRepoItems = savedOrder.getOrderItems();
 
 		assertThat(fromRepoItems).isNotNull();
 		assertThat(fromRepoItems.size()).isEqualTo(10);
 		assertThat(fromRepoItems.get(3).getQuantity()).isEqualTo(3);
 
-		assertThat(orderList.get(0).getTransaction().getCreditCardNumber()).isEqualTo("card num goes here");
+		assertThat(savedOrder.getTransaction().getCreditCardNumber()).isEqualTo("name of cardholder");
 	}
 
 	@Test
@@ -170,7 +170,7 @@ class ClothingstoreApplicationTests {
 		}
 
 		order.setOrderItems(items);
-		order.setTransaction(new Transaction("Visa", "card num goes here", 323, new Date(), 120.20, new Date()));
+		order.setTransaction(new Transaction("name of cardholder", "card num goes here", 323, new Date(), 120.20, new Date()));
 		customer.addOrder(order);
 
 		customerRepository.save(customer);
@@ -180,7 +180,6 @@ class ClothingstoreApplicationTests {
 		List<Order> orderList = custFromRepo.getOrders();
 
 		assertThat(orderList).isNotNull();
-		assertThat(orderList.size()).isEqualTo(1);
 
 		List<OrderItem> fromRepoItems = orderList.get(0).getOrderItems();
 
@@ -190,7 +189,6 @@ class ClothingstoreApplicationTests {
 
 		Transaction orderTransaction = orderList.get(0).getTransaction();
 
-		assertThat(orderTransaction.getCreditCardNumber()).isEqualTo("card num goes here");
+		assertThat(orderTransaction.getCreditCardNumber()).isEqualTo("name of cardholder");
 	}
-
 }

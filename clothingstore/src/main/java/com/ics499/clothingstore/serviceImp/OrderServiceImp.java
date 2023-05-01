@@ -118,11 +118,12 @@ public class OrderServiceImp implements OrderService {
 		}
 
 		if (orderInformation.get("username") == null) {
+			order.setUser(new Guest());
+		} else {
 			Customer foundCustomer = customerRepository
 					.findByUsername(String.valueOf(orderInformation.get("username")));
 			order.setUser(foundCustomer);
-		} else {
-			order.setUser(new Guest());
+
 		}
 
 		Order savedOrder = orderRepository.save(order);
