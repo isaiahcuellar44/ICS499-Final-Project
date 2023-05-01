@@ -2,7 +2,6 @@ package com.ics499.clothingstore.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PostPersist;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,7 +19,12 @@ public class Order {
 	@Id
 	@GeneratedValue
 	private long orderId;
-	private static final double shippingCost = 4.99;
+
+	private String billingName;
+	private String address;
+	private String city;
+	private String state;
+	private int zip;
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	@JsonIgnore
@@ -40,6 +43,16 @@ public class Order {
 		this.orderItems = orderItems;
 	}
 
+	public Order(String billingName, String address, String city, String state, int zip) {
+		super();
+		this.billingName = billingName;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+		this.orderItems = new ArrayList<OrderItem>();
+	}
+
 	public Order() {
 		super();
 		this.orderItems = new ArrayList<OrderItem>();
@@ -53,12 +66,48 @@ public class Order {
 		this.transaction = transaction;
 	}
 
-	public long timeToLive() {
-		return 0;
-	}
-
 	public List<OrderItem> getOrderItems() {
 		return orderItems;
+	}
+
+	public String getBillingName() {
+		return billingName;
+	}
+
+	public void setBillingName(String billingName) {
+		this.billingName = billingName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public int getZip() {
+		return zip;
+	}
+
+	public void setZip(int zip) {
+		this.zip = zip;
 	}
 
 	public long getOrderId() {
@@ -85,19 +134,8 @@ public class Order {
 		return this.orderId;
 	}
 
-	public double orderTotal() {
-		double total = 0;
-		for (OrderItem orderItem : orderItems) {
-			total += orderItem.getProduct().getPrice();
-		}
-
-		return total + shippingCost;
-
-	}
-
 	public void addToOrder(OrderItem orderItem) {
 		this.orderItems.add(orderItem);
-
 	}
 
 	public void emptyOrder() {

@@ -18,35 +18,35 @@ import com.ics499.clothingstore.repository.GuestRepository;
 @RequestMapping("guest")
 @CrossOrigin(origins = "http://localhost:4200")
 public class GuestController {
-	
+
 	@Autowired
 	GuestRepository guestRepository;
-	
+
 	@GetMapping("/test")
 	public String test() {
 		return "Guest Controller";
 	}
-	
+
 	@PostMapping("/save")
 	public Guest saveGuest(@RequestBody Guest guest) {
 		return guestRepository.save(guest);
 	}
-	
+
 	@PostMapping("/saveMany")
 	public List<Guest> saveManyGuests(@RequestBody List<Guest> guests) {
 		return guestRepository.saveAll(guests);
 	}
-	
+
 	@GetMapping("/all")
 	public List<Guest> list() {
 		return guestRepository.findAll();
 	}
-	
+
 	@GetMapping("{id}")
 	public Guest get(@PathVariable Long id) {
 		return guestRepository.getReferenceById(id);
 	}
-	
+
 	@PostMapping("/add")
 	public Guest create(@RequestBody final Guest guest) {
 		return guestRepository.saveAndFlush(guest);

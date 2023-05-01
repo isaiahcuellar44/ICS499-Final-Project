@@ -12,14 +12,13 @@ import com.ics499.clothingstore.repository.UserRepository;
 @RequestMapping("user")
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@GetMapping("/test")
 	public String test() {
 		return "User Controller";
 	}
-	
-	
+
 }
