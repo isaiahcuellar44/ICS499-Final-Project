@@ -8,7 +8,12 @@ We are utilizing these languages in order to build new skills and explore differ
 
 Some of our current challanges include: version types utilizing Spring Boot and integreating our JPA annotations into to create a database in PostgreSQL. 
 
+Instructions for SQL file:
 
+1. Go to src/main/resources and open the SQL file.
+2. Open pgAdmin4 and create the database "clothingstore".
+3. Open the Query Tool in pgAdmin4, and insert the contents from SQL file.
+4. Run the query to upload all clothing store information. 
 
 Team Members: Dylan Skokan, Justin Pham, Isaiah Cuellar, Tom Waterman.
 
