@@ -5,14 +5,15 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Service;
 
 import com.ics499.clothingstore.model.Customer;
 import com.ics499.clothingstore.repository.CustomerRepository;
 import com.ics499.clothingstore.service.CustomerService;
 
-@SpringBootApplication
+@Service
 public class CustomerServiceImp implements CustomerService {
+
 	@Autowired
 	private CustomerRepository customerRepository;
 
@@ -37,7 +38,6 @@ public class CustomerServiceImp implements CustomerService {
 		}
 
 		if (foundCustomer == null) {
-			System.out.println("Customer does not exist");
 			return false;
 		}
 

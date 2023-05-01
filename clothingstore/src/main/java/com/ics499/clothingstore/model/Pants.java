@@ -60,23 +60,19 @@ public class Pants extends Product {
 	public void setBeltloops(boolean beltloops) {
 		this.beltloops = beltloops;
 	}
-	
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Pants)) return false;
-        Pants pants = (Pants) o;
-        return Float.compare(pants.price, price) == 0 &&
-                stock == pants.stock &&
-                Objects.equals(description, pants.description) &&
-                Objects.equals(brand, pants.brand) &&
-                Objects.equals(color, pants.color) &&
-                Objects.equals(size, pants.size) &&
-                Objects.equals(fit, pants.fit) &&
-                type == pants.type &&
-                pockets == pants.pockets &&
-                zipper == pants.zipper &&
-                beltloops == pants.beltloops &&
-                Objects.equals(image_source, pants.image_source);
-    }
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof Pants))
+			return false;
+		Pants pants = (Pants) o;
+		return Float.compare(pants.price, price) == 0 && stock == pants.stock
+				&& Objects.equals(description, pants.description) && Objects.equals(brand, pants.brand)
+				&& Objects.equals(color, pants.color) && Objects.equals(size, pants.size)
+				&& Objects.equals(fit, pants.fit) && type == pants.type && pockets == pants.pockets
+				&& zipper == pants.zipper && beltloops == pants.beltloops
+				&& Objects.equals(image_source, pants.image_source);
+	}
 }

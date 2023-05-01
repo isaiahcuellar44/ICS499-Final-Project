@@ -18,7 +18,7 @@ public class ProductReview {
 	private long userAccountID;
 	private String username;
 	private String review;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "product_id")
 	Product product;
@@ -31,9 +31,9 @@ public class ProductReview {
 		this.review = review;
 		this.username = username;
 	}
-	
+
 	public ProductReview() {
-		
+
 	}
 
 	public Product getProduct() {
@@ -53,7 +53,7 @@ public class ProductReview {
 	}
 
 	public long getProductId() {
-		return this.product.getProductId(); // -- TomW 
+		return this.product.getProductId(); // -- TomW
 	}
 
 //	public void setProductId(long productId) {
@@ -63,7 +63,7 @@ public class ProductReview {
 	public long getId() {
 		return this.reviewId;
 	}
-	
+
 	public int getRating() {
 		return rating;
 	}
@@ -89,11 +89,9 @@ public class ProductReview {
 	}
 
 	/*
-	@Override
-	public String toString() {
-		return "ProductReview [product=" + product + ", rating=" + rating + ", userAccountID=" + userAccountID
-				+ ", review=" + review + "]";
-	}
-	*/
+	 * @Override public String toString() { return "ProductReview [product=" +
+	 * product + ", rating=" + rating + ", userAccountID=" + userAccountID +
+	 * ", review=" + review + "]"; }
+	 */
 
 }

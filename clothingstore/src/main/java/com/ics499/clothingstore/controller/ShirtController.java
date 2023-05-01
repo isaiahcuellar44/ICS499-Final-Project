@@ -18,30 +18,30 @@ import com.ics499.clothingstore.repository.ShirtRepository;
 @RequestMapping("/shirt")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ShirtController {
-	
+
 	@Autowired
 	ShirtRepository shirtRepository;
-	
+
 	@GetMapping("/test")
 	public String test() {
 		return "Shirt Controller";
 	}
-	
+
 	@PostMapping("/save")
 	public Shirt saveShirt(@RequestBody Shirt shirt) {
 		return shirtRepository.save(shirt);
 	}
-	
+
 	@PostMapping("/saveMany")
 	public List<Shirt> saveManyShirts(@RequestBody List<Shirt> shirts) {
 		return shirtRepository.saveAll(shirts);
 	}
-	
+
 	@GetMapping("/getAll")
 	public List<Shirt> getAll() {
 		return shirtRepository.findAll();
 	}
-	
+
 	@GetMapping("/getById/{id}")
 	public Shirt getById(@PathVariable("id") Long id) {
 		return shirtRepository.findByProductId(id);

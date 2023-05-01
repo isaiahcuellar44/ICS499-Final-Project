@@ -7,11 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.ics499.clothingstore.model.ProductReview;
-import com.ics499.clothingstore.model.Shirt;
-import com.ics499.clothingstore.model.User;
 
-
-public interface ProductReviewRepository extends JpaRepository<ProductReview, Long>{
+public interface ProductReviewRepository extends JpaRepository<ProductReview, Long> {
 	@Query("SELECT r FROM ProductReview r WHERE r.product.productId = ?1")
 	List<ProductReview> findByProductId(@Param("id") Long id);
 }

@@ -5,9 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.ics499.clothingstore.model.Pants;
-import com.ics499.clothingstore.model.Shirt;
 
-public interface PantsRepository extends JpaRepository<Pants, Long>{
+public interface PantsRepository extends JpaRepository<Pants, Long> {
 	@Query("SELECT p FROM Pants p WHERE p.productId = ?1")
 	Pants findByProductId(@Param("id") Long id);
 }

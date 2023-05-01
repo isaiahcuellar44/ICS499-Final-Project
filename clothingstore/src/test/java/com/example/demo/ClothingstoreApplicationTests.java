@@ -132,27 +132,28 @@ class ClothingstoreApplicationTests {
 		}
 
 		order.setOrderItems(items);
-		
-		//Need to add transaction info, save in another table for security reasons
-		//Payment type, card num, CVC, exp date, transaction total, transaction date, is return, user account
-		order.setTransaction(new Transaction("Visa", "card num goes here", 323, new Date(),
-				120.20, new Date(), false));
+
+		// Need to add transaction info, save in another table for security reasons
+		// Payment type, card num, CVC, exp date, transaction total, transaction date,
+		// is return, user account
+		order.setTransaction(new Transaction("Visa", "card num goes here", 323, new Date(), 120.20, new Date()));
 
 		orderRepository.save(order);
 
-		//We only have 1 order in the database so this works, but in practice if we wanted
-		//a customer's order we would want to search for it in the repo
+		// We only have 1 order in the database so this works, but in practice if we
+		// wanted
+		// a customer's order we would want to search for it in the repo
 		List<Order> orderList = orderRepository.findAll();
 
 		assertThat(orderList).isNotNull();
 		assertThat(orderList.size()).isEqualTo(1);
-		
+
 		List<OrderItem> fromRepoItems = orderList.get(0).getOrderItems();
 
 		assertThat(fromRepoItems).isNotNull();
 		assertThat(fromRepoItems.size()).isEqualTo(10);
 		assertThat(fromRepoItems.get(3).getQuantity()).isEqualTo(3);
-		
+
 		assertThat(orderList.get(0).getTransaction().getCreditCardNumber()).isEqualTo("card num goes here");
 	}
 
@@ -169,8 +170,7 @@ class ClothingstoreApplicationTests {
 		}
 
 		order.setOrderItems(items);
-		order.setTransaction(new Transaction("Visa", "card num goes here", 323, new Date(),
-				120.20, new Date(), false));
+		order.setTransaction(new Transaction("Visa", "card num goes here", 323, new Date(), 120.20, new Date()));
 		customer.addOrder(order);
 
 		customerRepository.save(customer);
@@ -187,9 +187,9 @@ class ClothingstoreApplicationTests {
 		assertThat(fromRepoItems).isNotNull();
 		assertThat(fromRepoItems.size()).isEqualTo(10);
 		assertThat(fromRepoItems.get(3).getQuantity()).isEqualTo(2);
-		
+
 		Transaction orderTransaction = orderList.get(0).getTransaction();
-		
+
 		assertThat(orderTransaction.getCreditCardNumber()).isEqualTo("card num goes here");
 	}
 

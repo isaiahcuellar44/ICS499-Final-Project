@@ -5,8 +5,8 @@ import javax.persistence.Entity;
 @Entity
 public class Guest extends User {
 
-	//@GeneratedValue
-	//private long sessionId;
+	// @GeneratedValue
+	// private long sessionId;
 
 	public Guest() {
 		super();

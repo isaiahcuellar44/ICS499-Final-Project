@@ -1,7 +1,5 @@
 package com.ics499.clothingstore.controller;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,18 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ics499.clothingstore.model.Customer;
-import com.ics499.clothingstore.model.Guest;
-import com.ics499.clothingstore.model.Hat;
 import com.ics499.clothingstore.model.Order;
-import com.ics499.clothingstore.model.OrderItem;
-import com.ics499.clothingstore.model.Pants;
-import com.ics499.clothingstore.model.Shirt;
-import com.ics499.clothingstore.model.Shoes;
-import com.ics499.clothingstore.model.Transaction;
-import com.ics499.clothingstore.repository.CustomerRepository;
 import com.ics499.clothingstore.repository.OrderRepository;
 import com.ics499.clothingstore.repository.ProductRepository;
+import com.ics499.clothingstore.service.OrderService;
 
 @RestController
 @RequestMapping("/order")
@@ -36,64 +26,14 @@ public class OrderController {
 	OrderRepository orderRepository;
 
 	@Autowired
-	ProductRepository productRepository;
+	ProductRepository<?> productRepository;
 
 	@Autowired
-	private CustomerRepository customerRepository;
+	OrderService orderService;
 
-//public long createOrder(@RequestBody Map<String, Object> orderInformation) {
-	@SuppressWarnings("unchecked")
 	@PostMapping("/createOrder")
 	public long createOrder(@RequestBody Map<String, Object> orderInformation) {
-		LinkedHashMap<String, Object> orderMap = (LinkedHashMap<String, Object>) orderInformation.get("orderItems");
-		ArrayList<LinkedHashMap<String, String>> orderProducts = (ArrayList<LinkedHashMap<String, String>>) orderMap
-				.get("products");
-		
-		LinkedHashMap<String, String> checkoutInfo = (LinkedHashMap<String, String>) orderInformation.get("checkoutInfo");
-		
-		Order order = new Order();
-		
-		Transaction transaction = new Transaction();
-		
-		System.out.println(checkoutInfo);
-		System.out.println(checkoutInfo.get("cardNum"));
-		
-		transaction.setCreditCardNumber(checkoutInfo.get("cardNum"));
-		
-		transaction.setTotal((double) orderMap.get("totalCost"));
-		order.setTransaction(transaction);
-		transaction.setOrder(order);
-		
-		for (LinkedHashMap<String, String> prod : orderProducts) {
-			long productId = Long.parseLong(String.valueOf(prod.get("productId")));
-			var product = productRepository.findById(productId);
-			OrderItem orderItem = new OrderItem();
-
-			orderItem.setQuantity(Integer.parseInt(String.valueOf(prod.get("quantity"))));
-
-			if (product instanceof Shirt) {
-				orderItem.setProduct((Shirt) product);
-			} else if (product instanceof Hat) {
-				orderItem.setProduct((Hat) product);
-			} else if (product instanceof Shoes) {
-				orderItem.setProduct((Shoes) product);
-			} else if (product instanceof Pants) {
-				orderItem.setProduct((Pants) product);
-			}
-			
-			orderItem.setOrder(order);
-			order.addToOrder(orderItem);
-		}
-		
-		if(orderInformation.get("username") == null) {
-			Customer foundCustomer = customerRepository.findByUsername(String.valueOf(orderInformation.get("username")));
-			order.setUser(foundCustomer);
-		} else {
-			order.setUser(new Guest());
-		}
-		
-		Order savedOrder = orderRepository.save(order);
-		return savedOrder.getId();
+		return orderService.createOrder(orderInformation);
 	}
 
 	@GetMapping("/test")

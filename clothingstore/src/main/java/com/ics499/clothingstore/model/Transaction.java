@@ -7,42 +7,36 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-public class Transaction implements Payment {
+public class Transaction {
 
 	@Id
 	@GeneratedValue
 	private long transactionId;
-	
-	private String paymentMethod;// could this be a enum? like Visa, Mastercard, discover?
+
 	private String creditCardNumber;
+	private String cardName;
 	private int creditCardCV;
 	private Date creditCardExpirationDate;
 	private double total;
 	private Date transactionDate;
-	private boolean isReturn;// should returns be it's own subclass?
-	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // TomW 
-	@JoinColumn(name = "orderId")
-	private Order order;	
 
-	public Transaction(String paymentMethod, String creditCardNumber, int creditCardCV, Date creditCardExpirationDate,
-			double total, Date transactionDate, boolean isReturn) {
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "orderId")
+	private Order order;
+
+	public Transaction(String creditCardNumber, String cardName, int creditCardCV, Date creditCardExpirationDate,
+			double total, Date transactionDate) {
 		super();
-		this.paymentMethod = paymentMethod;
 		this.creditCardNumber = creditCardNumber;
+		this.cardName = cardName;
 		this.creditCardCV = creditCardCV;
 		this.creditCardExpirationDate = creditCardExpirationDate;
 		this.total = total;
 		this.transactionDate = transactionDate;
-		this.isReturn = isReturn;
 	}
 
 	public Transaction() {
@@ -57,12 +51,12 @@ public class Transaction implements Payment {
 		this.order = order;
 	}
 
-	public String getPaymentMethod() {
-		return paymentMethod;
+	public String getCardName() {
+		return cardName;
 	}
 
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
 	}
 
 	public String getCreditCardNumber() {
@@ -88,7 +82,7 @@ public class Transaction implements Payment {
 	public void setCreditCardExpirationDate(Date creditCardExpirationDate) {
 		this.creditCardExpirationDate = creditCardExpirationDate;
 	}
-	 
+
 	public double getTotal() {
 		return total;
 	}
@@ -103,28 +97,5 @@ public class Transaction implements Payment {
 
 	public void setTransactionDate(Date transactionDate) {
 		this.transactionDate = transactionDate;
-	}
-
-	public boolean isReturn() {
-		return isReturn;
-	}
-
-	public void setReturn(boolean isReturn) {
-		this.isReturn = isReturn;
-	}
-
-	/*
-	@Override
-	public String toString() {
-		return "Transaction [PaymentMethod=" + PaymentMethod + ", creditCardNumber=" + creditCardNumber
-				+ ", creditCardCV=" + creditCardCV + ", creditCardExpirationDate=" + creditCardExpirationDate
-				+ ", cart=" + cart + ", total=" + total + ", transactionDate=" + transactionDate + ", isReturn="
-				+ isReturn + ", userAccountId=" + userAccountId + "]";
-	}
-	*/
-	
-	@Override
-	public String doSomeEncrypting() {
-		return null;
 	}
 }
