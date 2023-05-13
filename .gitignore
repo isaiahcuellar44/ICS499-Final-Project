@@ -201,3 +201,16 @@ README.html
 .exercism
 *.class
 *.class
+clothingstore/.metadata/.log
+clothingstore/.metadata/.plugins/org.eclipse.core.resources/.projects/.org.eclipse.egit.core.cmp/.location
+clothingstore/.metadata/.plugins/org.eclipse.core.resources/.root/.indexes/properties.index
+clothingstore/.metadata/.plugins/org.eclipse.core.resources/.root/.markers.snap
+clothingstore/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources
+clothingstore/.metadata/.plugins/org.eclipse.core.resources/0.snap
+clothingstore/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.jdt.ui.prefs
+clothingstore/.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.ui.ide.prefs
+clothingstore/.metadata/.plugins/org.eclipse.jdt.core/variablesAndContainers.dat
+clothingstore/.metadata/.plugins/org.eclipse.m2e.core/workspaceState.ser
+clothingstore/.metadata/.plugins/org.eclipse.m2e.logback/0.log
+clothingstore/.metadata/.plugins/org.eclipse.ui.workbench/workingsets.xml
+clothingstore/.metadata/version.ini
